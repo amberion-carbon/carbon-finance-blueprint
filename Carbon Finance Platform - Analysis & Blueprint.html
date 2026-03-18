@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbon Finance Platform — Analysis & Blueprint</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #212f50;
+    --blue: #5a92ee;
+    --electric: #2563EB;
+    --orange: #E85D04;
+    --ice: #BFD7F0;
+    --soft: #D6E8FA;
+    --text: #1A1A1A;
+    --bg: #ffffff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.65;
+    font-size: 15px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 48px 24px 36px;
+    border-bottom: none;
+  }
+  .header svg { margin-bottom: 24px; }
+  .header h1 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .header .subtitle {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--blue);
+  }
+  .header .date {
+    font-size: 13px;
+    color: var(--blue);
+    margin-top: 8px;
+  }
+
+  /* Layout */
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px 64px; }
+
+  /* Navigation */
+  .nav {
+    position: sticky;
+    top: 0;
+    background: rgba(255,255,255,0.97);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    padding: 12px 0;
+    margin-bottom: 32px;
+  }
+  .nav-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .nav a {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--navy);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    background: var(--soft);
+    transition: all 0.2s;
+  }
+  .nav a:hover { background: var(--blue); color: white; }
+
+  /* Sections */
+  .section { margin-bottom: 48px; }
+  .section h2 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--navy);
+    margin-bottom: 16px;
+    scroll-margin-top: 60px;
+  }
+  .section h3 {
+    font-family: 'Montserrat', Arial, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--blue);
+    margin: 20px 0 10px;
+  }
+  .section p { margin-bottom: 12px; }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .card {
+    background: white;
+    border: 1px solid var(--ice);
+    border-radius: 12px;
+    padding: 20px;
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: 0 4px 16px rgba(33,47,80,0.08); }
+  .card .card-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .card .card-body { font-size: 13px; line-height: 1.6; }
+
+  /* Accent card */
+  .card.accent {
+    border-left: 4px solid var(--electric);
+  }
+  .card.highlight {
+    border-left: 4px solid var(--orange);
+  }
+
+  /* Collapsible */
+  details {
+    margin: 12px 0;
+    border: 1px solid var(--ice);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  summary {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--navy);
+    padding: 14px 20px;
+    cursor: pointer;
+    background: var(--soft);
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  summary::before {
+    content: '▸';
+    display: inline-block;
+    transition: transform 0.2s;
+    color: var(--blue);
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  summary::-webkit-details-marker { display: none; }
+  .details-content { padding: 16px 20px; font-size: 14px; }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  th {
+    background: var(--navy);
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    text-align: left;
+    padding: 10px 14px;
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--ice);
+  }
+  tr:nth-child(even) td { background: #f8fbff; }
+
+  /* Tag */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 12px;
+    margin: 2px;
+  }
+  .tag-blue { background: var(--soft); color: var(--navy); }
+  .tag-green { background: #d4edda; color: #155724; }
+  .tag-orange { background: #fff3cd; color: #856404; }
+  .tag-red { background: #f8d7da; color: #721c24; }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 20px 0;
+    overflow-x: auto;
+    padding: 12px 0;
+  }
+  .flow-step {
+    background: var(--soft);
+    border-radius: 10px;
+    padding: 14px 18px;
+    min-width: 140px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+  .flow-step strong { display: block; font-size: 13px; margin-bottom: 4px; }
+  .flow-arrow {
+    font-size: 20px;
+    color: var(--blue);
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+  .flow-step.active { background: var(--electric); color: white; }
+
+  /* Lists */
+  ul, ol { padding-left: 24px; margin: 8px 0 16px; }
+  li { margin-bottom: 6px; font-size: 14px; }
+
+  /* Code block */
+  .schema-block {
+    background: #1e293b;
+    color: #e2e8f0;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 12px 0;
+  }
+  .schema-block .comment { color: #64748b; }
+  .schema-block .keyword { color: #7cc2ff; }
+  .schema-block .type { color: #a5d6ff; }
+  .schema-block .field { color: #e2e8f0; }
+  .schema-block .string { color: #86efac; }
+
+  /* Integration diagram */
+  .integration-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .int-card {
+    border: 2px solid var(--ice);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .int-card .int-name {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .int-card .int-desc {
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+  .int-card.core { border-color: var(--electric); background: #f0f7ff; }
+
+  /* Phase timeline */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 20px 0;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 12px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--ice);
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--blue);
+    border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+  .timeline-item .phase-title {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--navy);
+  }
+  .timeline-item .phase-time {
+    font-size: 12px;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  /* Metric bar */
+  .metric-row {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+  }
+  .metric-label { font-size: 13px; font-weight: 500; width: 160px; }
+  .metric-bar {
+    flex: 1;
+    height: 8px;
+    background: var(--ice);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .metric-fill { height: 100%; border-radius: 4px; background: var(--electric); }
+  .metric-val { font-size: 12px; font-weight: 600; color: var(--navy); width: 80px; text-align: right; }
+
+  @media (max-width: 640px) {
+    .header h1 { font-size: 24px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0)"><path d="M7.26582 -3.05176e-05L0.000358582 9.53589H47.0745L40.3388 -3.05176e-05H7.26582Z" fill="url(#p0)"/><path d="M23.6127 39.478L0 9.53594H47.0741L23.6127 39.478Z" fill="url(#p1)"/><path d="M23.6127 39.478L0 9.53594H12.2151L23.6127 39.478Z" fill="url(#p2)"/><path d="M23.6129 39.478L47.2256 9.53594H35.0106L23.6129 39.478Z" fill="url(#p3)"/><path d="M16.2014 -4.57764e-05L23.6258 9.53587L31.0244 -4.57764e-05H16.2014Z" fill="url(#p4)"/></g>
+    <path d="M70.7724 34.3862C64.1711 34.3862 59.0318 29.3355 59.0318 22.8671C59.0318 16.3987 64.1711 11.3923 70.7724 11.3923C76.7978 11.3923 81.5383 15.6012 82.2915 21.2278H75.5573C74.937 19.1012 73.2091 17.5949 70.7724 17.5949C67.804 17.5949 65.6331 19.8544 65.6331 22.8671C65.6331 25.8798 67.804 28.1836 70.7724 28.1836C73.2091 28.1836 74.937 26.6773 75.5573 24.5507H82.2915C81.5826 30.1773 76.7978 34.3862 70.7724 34.3862Z" fill="#222F50"/>
+    <path d="M94.7126 34.3862C88.5543 34.3862 83.7695 29.3798 83.7695 22.8671C83.7695 16.3987 88.5543 11.3923 94.7126 11.3923C97.4152 11.3923 99.6747 12.367 101.092 14.1392V11.8353H107.339V33.9432H101.092V31.6393C99.6747 33.3672 97.4152 34.3862 94.7126 34.3862ZM95.5987 28.1393C98.5671 28.1393 100.782 25.9684 100.782 22.8671C100.782 19.8101 98.5671 17.5949 95.5987 17.5949C92.586 17.5949 90.3708 19.8101 90.3708 22.8671C90.3708 25.9684 92.5417 28.1393 95.5987 28.1393Z" fill="#222F50"/>
+    <path d="M117.692 33.9432H111.091V11.8353H117.382V14.7594C118.49 12.9429 120.528 11.8353 123.452 11.8353H125.047V18.5253H122.522C119.154 18.5253 117.692 20.0316 117.692 23.3101V33.9432Z" fill="#222F50"/>
+    <path d="M140.02 34.3862C137.273 34.3862 135.058 33.3672 133.64 31.6393V33.9432H127.349V3.37321H133.95V13.7847C135.412 12.2341 137.494 11.3923 140.02 11.3923C146.178 11.3923 150.963 16.3987 150.963 22.8671C150.963 29.3798 146.178 34.3862 140.02 34.3862ZM139.134 28.1393C142.146 28.1393 144.361 25.9684 144.361 22.8671C144.361 19.7658 142.146 17.5949 139.134 17.5949C136.121 17.5949 133.95 19.7658 133.95 22.8671C133.95 25.9684 136.121 28.1393 139.134 28.1393Z" fill="#222F50"/>
+    <path d="M164.274 34.3862C157.628 34.3862 152.445 29.3355 152.445 22.8671C152.445 16.3987 157.628 11.3923 164.274 11.3923C170.919 11.3923 176.059 16.3987 176.059 22.8671C176.059 29.3355 170.919 34.3862 164.274 34.3862ZM164.274 28.1836C167.286 28.1836 169.457 25.9684 169.457 22.8671C169.457 19.8101 167.286 17.5949 164.274 17.5949C161.217 17.5949 159.046 19.8101 159.046 22.8671C159.046 25.9684 161.217 28.1836 164.274 28.1836Z" fill="#222F50"/>
+    <path d="M185.069 33.9432H178.468V11.8353H184.759V13.7847C186.088 12.2341 188.215 11.3923 190.785 11.3923C196.234 11.3923 200 15.424 200 21.4494V33.9432H193.399V22.1139C193.399 19.3228 191.937 17.6392 189.367 17.6392C186.753 17.6392 185.069 19.3671 185.069 22.1139V33.9432Z" fill="#222F50"/>
+    <defs><linearGradient id="p0" x1="23.6" y1="10.77" x2="23" y2="-0.82" gradientUnits="userSpaceOnUse"><stop stop-color="#7CC2FF"/><stop offset=".99" stop-color="#E2EDFE"/></linearGradient><linearGradient id="p1" x1="29.42" y1="-0.66" x2="10.59" y2="31.96" gradientUnits="userSpaceOnUse"><stop stop-color="#88B5FA"/><stop offset=".99" stop-color="#E2EDFE"/></linearGradient><linearGradient id="p2" x1="5.5" y1="8.49" x2="18.48" y2="30.96" gradientUnits="userSpaceOnUse"><stop stop-color="#528CED"/><stop offset=".99" stop-color="#B1CCF8"/></linearGradient><linearGradient id="p3" x1="41.72" y1="8.49" x2="28.75" y2="30.96" gradientUnits="userSpaceOnUse"><stop stop-color="#528CED"/><stop offset=".99" stop-color="#B1CCF8"/></linearGradient><linearGradient id="p4" x1="23.39" y1="-1.27" x2="25.24" y2="9.25" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset=".99" stop-color="#C5E1FE"/></linearGradient><clipPath id="clip0"><rect width="47.23" height="39.48" fill="white"/></clipPath></defs>
+  </svg>
+  <h1>Finance Platform: Analysis & Blueprint</h1>
+  <div class="subtitle">AR & AP Operations Software for Carbon Global</div>
+  <div class="date">Internal Analysis — March 2026</div>
+</div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <a href="#current">Current State</a>
+    <a href="#billing">Billing Logic</a>
+    <a href="#pain">Pain Points</a>
+    <a href="#vision">Platform Vision</a>
+    <a href="#data">Data Model</a>
+    <a href="#features">Features</a>
+    <a href="#integrations">Integrations</a>
+    <a href="#tech">Tech Stack</a>
+    <a href="#roadmap">Roadmap</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ============ SECTION 1: CURRENT STATE ============ -->
+<div class="section" id="current">
+  <h2>1. Current State Analysis</h2>
+  <p>After analyzing all three workbooks (2024, 2025, 2026), here is how Carbon currently manages finance operations. The system lives entirely in Excel spreadsheets, with one workbook per year.</p>
+
+  <h3>Workbook Structure</h3>
+  <div class="card-grid">
+    <div class="card accent">
+      <div class="card-title">Monthly Sheets (Jan-Dec)</div>
+      <div class="card-body">The core calculation engine. Each month has its own sheet containing every active client, their assigned contractors, rate configurations, hours/days worked, payment calculations, and invoice tracking. This is where the real work happens.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Contractors Sheet</div>
+      <div class="card-body">Master registry of all contractors with their legal entity name, VAT ID, bank account details, and a monthly grid tracking: total paid, invoice number, and payment status (paid/unpaid) per month.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Clients Sheet</div>
+      <div class="card-body">Monthly invoice totals per client, with sent date, due date, and payment status. Tracks AR at the aggregate level per client per month.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Totals for Model</div>
+      <div class="card-body">Summary dashboard showing Carbon Margin and Client Total per month per client. Used for high-level financial reporting. Many cells show #REF! errors due to cross-sheet formula breaks.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Contractor Hours</div>
+      <div class="card-body">Monthly hours per contractor grouped by client. Used to cross-reference time tracking with the billing calculations in the monthly sheets.</div>
+    </div>
+  </div>
+
+  <h3>Clients Tracked (2025-2026)</h3>
+  <p>Across the last two years, the spreadsheets track these client accounts:</p>
+  <div style="margin: 12px 0;">
+    <span class="tag tag-blue">Marley Spoon</span>
+    <span class="tag tag-blue">Hidden Road</span>
+    <span class="tag tag-blue">Blocksfabrik</span>
+    <span class="tag tag-blue">Swrve</span>
+    <span class="tag tag-blue">Mosaic</span>
+    <span class="tag tag-blue">Charmverse</span>
+    <span class="tag tag-blue">Sennder</span>
+    <span class="tag tag-blue">Kaizan</span>
+    <span class="tag tag-blue">Apriority</span>
+    <span class="tag tag-blue">Mindforce</span>
+    <span class="tag tag-blue">Deep Ocean</span>
+    <span class="tag tag-blue">Careem</span>
+    <span class="tag tag-blue">NUET</span>
+    <span class="tag tag-blue">Vaultd</span>
+    <span class="tag tag-blue">Claramed</span>
+    <span class="tag tag-blue">Stuart</span>
+    <span class="tag tag-blue">Aviv</span>
+    <span class="tag tag-blue">Immoweb</span>
+    <span class="tag tag-blue">Bizaway</span>
+  </div>
+
+  <h3>Scale</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">~40+ contractors</div>
+      <div class="card-body">Active across all clients, with some contractors shared between projects (e.g. Andra Cimpan works on Apriority, NUET, Vaultd, and Claramed).</div>
+    </div>
+    <div class="card">
+      <div class="card-title">~19 active clients</div>
+      <div class="card-body">Some clients go dormant for months (0 billing) but remain in the spreadsheet structure. New clients get added mid-year.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">~$290K/month revenue</div>
+      <div class="card-body">January 2026 total client billing was $289,130 across all clients, with Carbon's margin at $69,833 (roughly 24% blended margin).</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 2: BILLING LOGIC ============ -->
+<div class="section" id="billing">
+  <h2>2. How Billing Currently Works</h2>
+  <p>Carbon operates as a staffing intermediary. Contractors have a base rate, Carbon adds a fee, and clients are billed the combined total. The monthly sheets calculate everything.</p>
+
+  <h3>The Rate Calculation Flow</h3>
+  <div class="flow">
+    <div class="flow-step"><strong>Contractor Rate</strong>Hourly, Daily, or Monthly</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Carbon Fee</strong>Per unit markup</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Client Rate</strong>Rate + Fee = Total</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step"><strong>Time Worked</strong>Hours or Days</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step active"><strong>Invoice Totals</strong>Contractor + Client</div>
+  </div>
+
+  <h3>Three Rate Models</h3>
+  <table>
+    <thead>
+      <tr><th>Model</th><th>Contractor Gets</th><th>Carbon Fee</th><th>Client Pays</th><th>Example</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Hourly</strong></td>
+        <td>Hourly Rate × Hours</td>
+        <td>Fee × Hours</td>
+        <td>Total Rate × Hours</td>
+        <td>Cristian Slabu: €62.50/hr + €100/hr Carbon Fee = €600/day. 160 hrs → Contractor: €10,000. Client: €12,000.</td>
+      </tr>
+      <tr>
+        <td><strong>Daily</strong></td>
+        <td>Daily Rate × Days</td>
+        <td>Fee × Days</td>
+        <td>Total Rate × Days</td>
+        <td>Constantin Dogaru: €600/day + €150/day fee = €750/day. 22 days → Contractor: €13,200. Client: €16,500.</td>
+      </tr>
+      <tr>
+        <td><strong>Monthly</strong></td>
+        <td>Flat monthly amount</td>
+        <td>Flat monthly fee</td>
+        <td>Flat total</td>
+        <td>Abdalla Nayer: $4,000/mo + $1,000 fee = $5,000/mo. No time tracking needed.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Carbon Fee Structures Observed</h3>
+  <p>The Carbon Fee varies significantly by client and contractor. Some patterns from the data:</p>
+  <ul>
+    <li><strong>Percentage-based:</strong> Many contractors show a consistent % markup. Hidden Road contractors have ~20-25% margins. Marley Spoon varies from 16-22%.</li>
+    <li><strong>Flat fee per unit:</strong> Some contractors have a fixed fee per hour/day (e.g. Piotr Rogowski: €87.78/day Carbon Fee on a €399/day rate = ~22%).</li>
+    <li><strong>Monthly flat fee:</strong> For monthly-rate contractors like Abdalla Nayer, Carbon adds a fixed $1,000/month regardless of workload.</li>
+    <li><strong>Variable by client:</strong> The same contractor (Anamaria Burduaza) has different Carbon Fees on different clients: €8/hr on Marley Spoon vs €6/hr on Apriority.</li>
+  </ul>
+
+  <h3>AP and AR Tracking</h3>
+  <div class="card-grid">
+    <div class="card highlight">
+      <div class="card-title">Accounts Payable (Contractor Side)</div>
+      <div class="card-body">
+        Per contractor per month: Contractor Total amount, Invoice Number (from the contractor), Received status (boolean: did they send their invoice?), Paid status (boolean: did Carbon pay them?). Tracked in both the monthly sheets and the master Contractors sheet.
+      </div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Accounts Receivable (Client Side)</div>
+      <div class="card-body">
+        Per client per month: Invoice Total (sum of all contractor totals + Carbon fees), Sent Date (when Carbon sent the invoice), Due Date (payment deadline), Payment Status (Sent/Paid/Unpaid). Tracked in both the monthly sheets and the master Clients sheet.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 3: PAIN POINTS ============ -->
+<div class="section" id="pain">
+  <h2>3. Pain Points & Why This Needs to Be Software</h2>
+
+  <div class="card-grid">
+    <div class="card highlight">
+      <div class="card-title">Broken Formulas Everywhere</div>
+      <div class="card-body">The 2026 Totals for Model sheet is riddled with #REF! errors. Cross-sheet references break when rows are added or clients are reorganized. The summary dashboard is unreliable.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Manual Duplication</div>
+      <div class="card-body">The same data lives in multiple places: monthly sheets, Contractors sheet, Clients sheet, Contractor Hours sheet. Every month, someone updates all four, hoping nothing falls out of sync.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">No Automation</div>
+      <div class="card-body">Invoice cross-checking, payment status updates, month-end rollups: everything is manual. There is no connection to banking, email, or project management tools.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Staffing Only</div>
+      <div class="card-body">The current structure only handles time-based staffing (hourly/daily/monthly contractors). Product studio, recruitment, and BOT projects have fundamentally different billing models that don't fit the spreadsheet layout.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">No Audit Trail</div>
+      <div class="card-body">Rate changes, corrections, and adjustments leave no history. If a number is wrong, there's no way to trace what changed and when.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Year Boundary Problem</div>
+      <div class="card-body">Starting a new year means creating an entirely new workbook. Historical reporting across years requires opening multiple files and cross-referencing manually.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SECTION 4: PLATFORM VISION ============ -->
+<div class="section" id="vision">
+  <h2>4. Platform Vision: Carbon Finance Hub</h2>
+  <p>A custom web application purpose-built for Carbon's operations. Not just an invoicing tool: a finance operations hub that handles all service types and integrates with the tools Carbon already uses.</p>
+
+  <h3>Service Types It Must Support</h3>
+  <div class="card-grid">
+    <div class="card accent">
+      <div class="card-title">Staffing</div>
+      <div class="card-body">Time-based contractor placements (hourly, daily, monthly). Multiple contractors per client. Carbon fee/markup per contractor. Exactly what the current spreadsheets handle, but automated.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Product Studio</div>
+      <div class="card-body">Project-based billing with milestones, deliverables, and potentially mixed models (fixed-fee phases + time-and-materials). May involve internal Carbon team + contractors working together.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Recruitment</div>
+      <div class="card-body">One-time or retainer-based fees. Success fees as a percentage of annual salary. Milestone payments (shortlist, interview, placement). Guarantee period tracking.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">BOT (Build-Operate-Transfer)</div>
+      <div class="card-body">Phased engagement: build a team, operate it, then transfer to the client. Monthly operational fees during operate phase, with planned ramp-down. Transfer milestones and exit payments.</div>
+    </div>
+  </div>
+
+  <h3>Core Billing Models the Platform Needs</h3>
+  <table>
+    <thead><tr><th>Model</th><th>Use Case</th><th>Billing Logic</th></tr></thead>
+    <tbody>
+      <tr><td>Time & Materials</td><td>Staffing, Product Studio</td><td>Rate × Time + Carbon margin</td></tr>
+      <tr><td>Fixed Monthly</td><td>Staffing, BOT operate phase</td><td>Flat fee per month per contractor or team</td></tr>
+      <tr><td>Milestone-Based</td><td>Product Studio, Recruitment</td><td>Fixed amounts tied to deliverables/events</td></tr>
+      <tr><td>Percentage Fee</td><td>Recruitment</td><td>% of placement salary or project value</td></tr>
+      <tr><td>Retainer</td><td>Product Studio, Recruitment</td><td>Fixed monthly access fee, with or without rollover</td></tr>
+      <tr><td>Hybrid</td><td>Any complex engagement</td><td>Retainer + T&M overages, or milestone + time tracking</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ SECTION 5: DATA MODEL ============ -->
+<div class="section" id="data">
+  <h2>5. Data Model</h2>
+  <p>The database schema needs to be flexible enough to support all service types while keeping the familiar concepts from the current spreadsheets.</p>
+
+  <details>
+    <summary>Core Entities</summary>
+    <div class="details-content">
+      <div class="schema-block">
+<span class="comment">// Organizations & People</span>
+<span class="keyword">Client</span> {
+  <span class="field">id, name, legal_entity, billing_contact,</span>
+  <span class="field">payment_terms (net_15, net_30, net_45),</span>
+  <span class="field">currency, tax_id, address, status</span>
+}
+
+<span class="keyword">Contractor</span> {
+  <span class="field">id, name, legal_entity, vat_id,</span>
+  <span class="field">bank_account, bank_name,</span>
+  <span class="field">payment_method (direct, Deel, Xolo),</span>
+  <span class="field">currency, country, status</span>
+}
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Engagements & Assignments</summary>
+    <div class="details-content">
+      <div class="schema-block">
+<span class="comment">// An engagement is a project/contract with a client</span>
+<span class="keyword">Engagement</span> {
+  <span class="field">id, client_id, name,</span>
+  <span class="field">type (staffing | product_studio | recruitment | bot),</span>
+  <span class="field">billing_model (time_materials | fixed_monthly | milestone | percentage | retainer | hybrid),</span>
+  <span class="field">start_date, end_date, status,</span>
+  <span class="field">notes</span>
+}
+
+<span class="comment">// Links a contractor to an engagement with their rate config</span>
+<span class="keyword">Assignment</span> {
+  <span class="field">id, engagement_id, contractor_id,</span>
+  <span class="field">rate_type (hourly | daily | monthly),</span>
+  <span class="field">contractor_rate, carbon_fee, client_rate,</span>
+  <span class="field">currency,</span>
+  <span class="field">start_date, end_date, status</span>
+}
+
+<span class="comment">// Track rate changes over time (audit trail)</span>
+<span class="keyword">RateHistory</span> {
+  <span class="field">id, assignment_id,</span>
+  <span class="field">contractor_rate, carbon_fee, client_rate,</span>
+  <span class="field">effective_date, changed_by, reason</span>
+}
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Time Tracking & Billing</summary>
+    <div class="details-content">
+      <div class="schema-block">
+<span class="comment">// Monthly time entries per assignment</span>
+<span class="keyword">TimeEntry</span> {
+  <span class="field">id, assignment_id, period (YYYY-MM),</span>
+  <span class="field">hours, days,</span>
+  <span class="field">source (manual | imported | api),</span>
+  <span class="field">notes, submitted_at, approved_at</span>
+}
+
+<span class="comment">// Milestones for project-based billing</span>
+<span class="keyword">Milestone</span> {
+  <span class="field">id, engagement_id, name, description,</span>
+  <span class="field">amount, currency,</span>
+  <span class="field">due_date, completed_date, status</span>
+}
+
+<span class="comment">// The billing period calculation result</span>
+<span class="keyword">BillingPeriod</span> {
+  <span class="field">id, engagement_id, period (YYYY-MM),</span>
+  <span class="field">line_items: [{</span>
+  <span class="field">  assignment_id, contractor_total,</span>
+  <span class="field">  carbon_fee, client_total</span>
+  <span class="field">}],</span>
+  <span class="field">total_contractor, total_carbon_fee, total_client,</span>
+  <span class="field">status (draft | approved | invoiced)</span>
+}
+      </div>
+    </div>
+  </details>
+
+  <details>
+    <summary>Invoices & Payments</summary>
+    <div class="details-content">
+      <div class="schema-block">
+<span class="comment">// AR: Invoices sent to clients</span>
+<span class="keyword">ClientInvoice</span> {
+  <span class="field">id, client_id, billing_period_id,</span>
+  <span class="field">invoice_number, amount, currency,</span>
+  <span class="field">issued_date, due_date,</span>
+  <span class="field">status (draft | sent | paid | overdue | void),</span>
+  <span class="field">paid_date, paid_amount,</span>
+  <span class="field">pdf_url, sent_via</span>
+}
+
+<span class="comment">// AP: Invoices received from contractors</span>
+<span class="keyword">ContractorInvoice</span> {
+  <span class="field">id, contractor_id, assignment_id, period,</span>
+  <span class="field">invoice_number, amount, currency,</span>
+  <span class="field">received_date, due_date,</span>
+  <span class="field">status (expected | received | verified | paid),</span>
+  <span class="field">paid_date, paid_amount,</span>
+  <span class="field">file_url, verified_against_billing_period</span>
+}
+
+<span class="comment">// Cross-check: does the contractor invoice match what we calculated?</span>
+<span class="keyword">InvoiceVerification</span> {
+  <span class="field">id, contractor_invoice_id, billing_period_id,</span>
+  <span class="field">expected_amount, invoiced_amount,</span>
+  <span class="field">discrepancy, status (match | mismatch | resolved),</span>
+  <span class="field">resolution_notes</span>
+}
+
+<span class="comment">// Batch payment groups (per client per period)</span>
+<span class="keyword">PaymentBatch</span> {
+  <span class="field">id, client_id, period (YYYY-MM),</span>
+  <span class="field">status (draft | approved | processing | completed | partial_fail),</span>
+  <span class="field">total_amount, currency,</span>
+  <span class="field">approved_by, approved_at, executed_at</span>
+}
+
+<span class="keyword">BatchPayment</span> {
+  <span class="field">id, batch_id, contractor_invoice_id,</span>
+  <span class="field">contractor_id, amount, currency,</span>
+  <span class="field">provider (revolut | wise | deel),</span>
+  <span class="field">provider_txn_id, status (pending | sent | settled | failed),</span>
+  <span class="field">sent_at, settled_at, failure_reason</span>
+}
+      </div>
+    </div>
+  </details>
+</div>
+
+<!-- ============ SECTION 6: FEATURES ============ -->
+<div class="section" id="features">
+  <h2>6. Feature Breakdown</h2>
+
+  <details open>
+    <summary>Dashboard & Reporting</summary>
+    <div class="details-content">
+      <p>The home screen replaces the broken "Totals for Model" sheet. Real-time, always accurate.</p>
+      <ul>
+        <li><strong>Monthly P&L overview:</strong> Total revenue, total contractor costs, Carbon margin, broken down by client and service type.</li>
+        <li><strong>AR aging:</strong> Which client invoices are outstanding, approaching due date, or overdue. Color-coded status.</li>
+        <li><strong>AP status:</strong> Which contractor invoices are expected, received, verified, or paid this period.</li>
+        <li><strong>Cash flow forecast:</strong> Based on payment terms and historical patterns, project expected inflows and outflows.</li>
+        <li><strong>Margin analysis:</strong> Margin % by client, by contractor, by engagement type. Trend over time.</li>
+        <li><strong>Year-over-year comparison:</strong> No more opening three separate workbooks.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Engagement & Assignment Management</summary>
+    <div class="details-content">
+      <ul>
+        <li>Create engagements with flexible billing models. A single client can have multiple active engagements (staffing + product studio, for example).</li>
+        <li>Assign contractors to engagements with per-assignment rate configurations. The system calculates the client rate automatically.</li>
+        <li>Support for contractors working across multiple clients (like the spreadsheets already handle).</li>
+        <li>Rate change management with effective dates and full audit history.</li>
+        <li>Engagement status lifecycle: Active, Paused, Completed, Cancelled.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Monthly Billing Cycle Engine</summary>
+    <div class="details-content">
+      <p>This replaces the monthly sheet creation workflow. The system guides you through each period:</p>
+      <div class="flow">
+        <div class="flow-step"><strong>1. Input Time</strong>Enter or import hours/days</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>2. Auto-Calculate</strong>System computes all totals</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>3. Review</strong>Check calculations, flag anomalies</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>4. Generate Invoices</strong>Client invoices created</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step active"><strong>5. Track Payments</strong>AP and AR status</div>
+      </div>
+      <ul>
+        <li><strong>Smart defaults:</strong> For monthly-rate contractors, the system pre-fills amounts. For hourly/daily, it prompts for time entries.</li>
+        <li><strong>Anomaly detection:</strong> Flag if hours are unusually high/low compared to previous months, or if a contractor hasn't submitted time.</li>
+        <li><strong>Batch operations:</strong> Mark multiple contractor invoices as paid, generate all client invoices for the month in one click.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Invoice Management</summary>
+    <div class="details-content">
+      <ul>
+        <li><strong>Client invoice generation:</strong> Auto-generate PDF invoices from billing period data. Customizable templates per client.</li>
+        <li><strong>Contractor invoice intake:</strong> Upload contractor invoices (PDF/image). OCR parsing to extract invoice number, amount, date.</li>
+        <li><strong>Cross-check engine:</strong> Automatically compare contractor invoiced amounts against calculated amounts. Flag discrepancies for review.</li>
+        <li><strong>Status tracking:</strong> Full lifecycle from draft → sent → acknowledged → paid, with date stamps at each stage.</li>
+        <li><strong>Reminders:</strong> Automated reminders for overdue client payments and missing contractor invoices.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Contractor Registry</summary>
+    <div class="details-content">
+      <p>Centralized contractor profiles replacing the master "Contractors" sheet.</p>
+      <ul>
+        <li>Full contractor profile: legal entity, VAT ID, bank details, payment method (direct, Deel, Xolo), preferred currency, country.</li>
+        <li>Assignment history: which clients, what rates, what periods.</li>
+        <li>Invoice history: all invoices received, payment dates, running totals.</li>
+        <li>Document storage: contracts, NDAs, onboarding docs linked to the profile.</li>
+        <li>Availability and status: Active, On bench, Offboarded.</li>
+      </ul>
+    </div>
+  </details>
+
+  <details>
+    <summary>Multi-Currency Support</summary>
+    <div class="details-content">
+      <p>The current spreadsheets use both EUR and USD. Some clients are billed in USD while their contractors are paid in EUR (or vice versa). The platform needs to handle currency at every level: client billing currency, contractor payment currency, and automatic conversion for margin calculations.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Batch Payment Processing (Revolut / Wise)</summary>
+    <div class="details-content">
+      <p>Once contractor invoices are verified against confirmed time entries, the platform generates batch payment files. No more paying contractors one by one.</p>
+
+      <h3>The Verification-to-Payment Flow</h3>
+      <div class="flow">
+        <div class="flow-step"><strong>1. Time Confirmed</strong>Hours/days approved for the period</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>2. Invoice Received</strong>Contractor submits their invoice</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>3. Cross-Check</strong>System matches invoice vs. calculation</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step"><strong>4. Batch Created</strong>Approved payments grouped by client</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step active"><strong>5. Execute Payment</strong>Send via Revolut or Wise API</div>
+      </div>
+
+      <h3>Batch Grouping by Client</h3>
+      <p>Payments are grouped per client engagement. For example, the "Hidden Road" batch for January would contain 7 contractor payments totaling $77,532 in one approval step. This mirrors how the spreadsheet currently groups contractors under each client heading, but adds the automation layer.</p>
+
+      <div class="card-grid">
+        <div class="card accent">
+          <div class="card-title">Payment Queue</div>
+          <div class="card-body">All verified contractor invoices land in a queue. Finance reviews the batch, adjusts if needed, and approves with one click.</div>
+        </div>
+        <div class="card accent">
+          <div class="card-title">Smart Routing</div>
+          <div class="card-body">Routes each payment to the correct provider based on the contractor's profile: Revolut for EU/IBAN, Wise for international (Brazil, Serbia, UAE), Deel for platform-managed contractors.</div>
+        </div>
+        <div class="card accent">
+          <div class="card-title">Pre-Payment Validation</div>
+          <div class="card-body">Before executing, the system checks: bank details on file, amount matches verified invoice, no duplicate payment for the same period, sufficient balance in the source account.</div>
+        </div>
+        <div class="card accent">
+          <div class="card-title">Confirmation & Reconciliation</div>
+          <div class="card-body">Records Revolut/Wise transaction IDs, marks invoices as paid with timestamps, sends Slack notifications. Daily sync with bank transaction history to confirm settlements and flag failed transfers.</div>
+        </div>
+      </div>
+
+      <h3>Provider API Integration</h3>
+      <table>
+        <thead><tr><th>Provider</th><th>API Capability</th><th>Use Case</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Revolut Business</strong></td><td>Batch payments, balance check, transaction history, webhooks</td><td>EU/SEPA payments. Most Carbon contractors are in Romania, Poland, Estonia. Fast settlement.</td></tr>
+          <tr><td><strong>Wise Business</strong></td><td>Batch payments, multi-currency, recipient management, real-time FX</td><td>International payments (Brazil, Serbia, UAE). Better FX rates for non-EUR currencies.</td></tr>
+          <tr><td><strong>Deel</strong></td><td>Invoice sync, payment status, contractor profiles</td><td>Contractors on Deel platform (e.g. Lucas Schenatto). Sync payment status back to Carbon's system.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Example: January Hidden Road Batch</h3>
+      <table>
+        <thead><tr><th>Contractor</th><th>Amount</th><th>Currency</th><th>Provider</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Constantin Dogaru</td><td>13,200</td><td>EUR</td><td><span class="tag tag-blue">Revolut</span></td><td><span class="tag tag-green">Verified</span></td></tr>
+          <tr><td>Dan Timofte</td><td>15,400</td><td>EUR</td><td><span class="tag tag-blue">Revolut</span></td><td><span class="tag tag-green">Verified</span></td></tr>
+          <tr><td>Lucas Schenatto</td><td>8,400</td><td>BRL</td><td><span class="tag tag-orange">Deel</span></td><td><span class="tag tag-green">Verified</span></td></tr>
+          <tr><td>Rodrigo Formighieri</td><td>16,250</td><td>EUR</td><td><span class="tag tag-blue">Revolut</span></td><td><span class="tag tag-green">Verified</span></td></tr>
+          <tr><td>Stanislaw Krotki</td><td>14,532</td><td>PLN</td><td><span class="tag tag-orange">Wise</span></td><td><span class="tag tag-green">Verified</span></td></tr>
+          <tr><td>Vlad Bancila</td><td>9,750</td><td>EUR</td><td><span class="tag tag-blue">Revolut</span></td><td><span class="tag tag-green">Verified</span></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:8px; font-size:13px;">One click approves the batch. The system splits it into a Revolut batch (4 payments, EUR), a Wise transfer (1 payment, PLN), and a Deel sync (1 payment). Each gets its own transaction ID and settlement tracking.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary>Operational Reports & KPIs</summary>
+    <div class="details-content">
+      <p>Real-time operational metrics that replace the manual totals from the "Totals for Model" sheet. Filterable by date range, client, service type, and contractor.</p>
+
+      <h3>Snapshot KPI Cards (Dashboard Home)</h3>
+      <div class="card-grid">
+        <div class="card" style="border-top: 3px solid var(--electric);">
+          <div class="card-title" style="color: var(--electric); font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800;">$289K</div>
+          <div class="card-body">Monthly Revenue<br><span style="font-size:11px; color: var(--blue);">Jan 2026 total client billing</span></div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--electric);">
+          <div class="card-title" style="color: var(--electric); font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800;">$70K</div>
+          <div class="card-body">Carbon Margin<br><span style="font-size:11px; color: var(--blue);">24% blended margin rate</span></div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--electric);">
+          <div class="card-title" style="color: var(--electric); font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800;">38</div>
+          <div class="card-body">Billing Contractors<br><span style="font-size:11px; color: var(--blue);">Active across all clients</span></div>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--electric);">
+          <div class="card-title" style="color: var(--electric); font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800;">12</div>
+          <div class="card-body">Active Clients<br><span style="font-size:11px; color: var(--blue);">With non-zero billing</span></div>
+        </div>
+      </div>
+
+      <h3>Revenue & Margin Reports</h3>
+      <div class="card-grid">
+        <div class="card accent">
+          <div class="card-title">Monthly Revenue Breakdown</div>
+          <div class="card-body">Total client billing across all engagements. Breakdown by client, by service type (staffing, product studio, recruitment, BOT). Month-over-month and year-over-year trends.</div>
+        </div>
+        <div class="card accent">
+          <div class="card-title">Carbon Margin Analysis</div>
+          <div class="card-body">Total margin in absolute dollars and as a percentage. Trend over time. Margin by client, by contractor, by engagement type. Identify your most and least profitable engagements.</div>
+        </div>
+        <div class="card accent">
+          <div class="card-title">Revenue per Contractor</div>
+          <div class="card-body">Which contractors generate the most billing? Which have the highest margin for Carbon? Helps with pricing decisions and identifying key personnel.</div>
+        </div>
+        <div class="card accent">
+          <div class="card-title">Client Concentration Risk</div>
+          <div class="card-body">What % of revenue comes from the top 3 clients? Currently Hidden Road alone is ~33% of January revenue. Alerts when concentration exceeds thresholds.</div>
+        </div>
+      </div>
+
+      <h3>Contractor Activity Reports</h3>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Active Billing Contractors</div>
+          <div class="card-body">How many contractors billed this period? Trend over time. New additions vs. departures per month. Growth rate tracking.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Hours & Days Worked</div>
+          <div class="card-body">Total across all clients. Average per contractor. Utilization rate (actual vs. available working days in the period). Overtime flags.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Contractor-to-Client Map</div>
+          <div class="card-body">Visual showing which contractors are assigned to which clients, with status indicators (active, paused, ending soon). Spot shared resources.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Bench Report</div>
+          <div class="card-body">Contractors on the roster but not currently billing. How long they've been on bench. Skills available for new engagements.</div>
+        </div>
+      </div>
+
+      <h3>Client Reports</h3>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-title">Active Clients</div>
+          <div class="card-body">Count of clients with non-zero billing this period. New clients added. Clients gone dormant. Churn tracking.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Client Billing History</div>
+          <div class="card-body">Per-client revenue over time, with contractor breakdown. Useful for account reviews, renewals, and upsell identification.</div>
+        </div>
+        <div class="card">
+          <div class="card-title">Payment Behavior</div>
+          <div class="card-body">Average days to pay per client. Which clients consistently pay late? Which pay early? Helps set appropriate payment terms.</div>
+        </div>
+      </div>
+
+      <h3>AP & AR Summary</h3>
+      <div class="card-grid">
+        <div class="card highlight">
+          <div class="card-title">AR Aging Dashboard</div>
+          <div class="card-body">Current, 1-30 days overdue, 31-60, 60+ by client. Total outstanding. Color-coded severity. Drill down to individual invoices.</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">AP Status</div>
+          <div class="card-body">How many contractor invoices received vs. expected this period. Verified vs. pending verification. Total AP outstanding. Missing invoice alerts.</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-title">Net Cash Position</div>
+          <div class="card-body">Client payments received minus contractor payments made. Running monthly cash flow. Forward-looking forecast based on payment terms and historical patterns.</div>
+        </div>
+      </div>
+
+      <h3>Export & Scheduling</h3>
+      <p>Every report exportable as CSV, PDF, or direct push to Google Sheets. Scheduled weekly/monthly report emails to leadership via n8n. Custom report builder for ad-hoc analysis.</p>
+    </div>
+  </details>
+
+</div>
+
+<!-- ============ SECTION 7: INTEGRATIONS ============ -->
+<div class="section" id="integrations">
+  <h2>7. Integration Architecture</h2>
+  <p>The platform should be the single source of truth, with n8n as the automation backbone connecting everything.</p>
+
+  <div class="integration-grid">
+    <div class="int-card core">
+      <div class="int-name">Carbon Finance Hub</div>
+      <div class="int-desc">Web app with API. Central database for all finance data.</div>
+    </div>
+    <div class="int-card core">
+      <div class="int-name">n8n</div>
+      <div class="int-desc">Automation engine. Orchestrates workflows between all systems.</div>
+    </div>
+    <div class="int-card">
+      <div class="int-name">Notion</div>
+      <div class="int-desc">Project tracking, client wikis, contractor profiles sync.</div>
+    </div>
+    <div class="int-card">
+      <div class="int-name">Slack</div>
+      <div class="int-desc">Notifications: overdue invoices, new time entries, approvals needed.</div>
+    </div>
+    <div class="int-card">
+      <div class="int-name">Google Workspace</div>
+      <div class="int-desc">Gmail for invoice sending. Drive for document storage. Sheets for exports.</div>
+    </div>
+    <div class="int-card">
+      <div class="int-name">Invoice Parser</div>
+      <div class="int-desc">OCR/AI parsing of incoming contractor PDFs. Extract amounts, dates, numbers.</div>
+    </div>
+    <div class="int-card">
+      <div class="int-name">Revolut Business</div>
+      <div class="int-desc">Batch SEPA payments to EU contractors. Balance checks. Transaction reconciliation.</div>
+    </div>
+    <div class="int-card">
+      <div class="int-name">Wise Business</div>
+      <div class="int-desc">International batch payments (Brazil, Serbia, UAE). Multi-currency FX. Recipient management.</div>
+    </div>
+    <div class="int-card">
+      <div class="int-name">Deel</div>
+      <div class="int-desc">Sync payment status for Deel-managed contractors. Invoice matching.</div>
+    </div>
+  </div>
+
+  <h3>Key n8n Workflows</h3>
+  <details>
+    <summary>Monthly Billing Cycle Automation</summary>
+    <div class="details-content">
+      <ul>
+        <li><strong>Trigger:</strong> 1st of each month (or manual trigger)</li>
+        <li>Pull time data from Notion or other tracking tools into the platform</li>
+        <li>Auto-calculate billing for all active engagements</li>
+        <li>Send Slack notification to finance team: "January billing ready for review"</li>
+        <li>After approval, generate client invoices as PDFs</li>
+        <li>Send invoices via Gmail with tracking</li>
+        <li>Create follow-up reminders in Google Calendar</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Contractor Invoice Processing</summary>
+    <div class="details-content">
+      <ul>
+        <li><strong>Trigger:</strong> Contractor email with invoice attachment arrives in a designated Gmail inbox</li>
+        <li>n8n extracts the PDF attachment</li>
+        <li>Sends to invoice parser (OCR + AI extraction)</li>
+        <li>Matches against expected billing in the platform</li>
+        <li>If match: auto-mark as verified, notify via Slack</li>
+        <li>If mismatch: flag for review, notify finance team with details</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Payment Status Sync</summary>
+    <div class="details-content">
+      <ul>
+        <li><strong>Trigger:</strong> Daily check or bank webhook</li>
+        <li>Check bank account for incoming payments matching outstanding client invoices</li>
+        <li>Auto-reconcile payments against invoices</li>
+        <li>Update invoice status in the platform</li>
+        <li>Post summary to Slack: "Hidden Road paid January invoice ($95,375.90)"</li>
+        <li>Update Notion project page with payment status</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Overdue Invoice Alerts</summary>
+    <div class="details-content">
+      <ul>
+        <li><strong>Trigger:</strong> Daily at 9am</li>
+        <li>Query platform for invoices past due date</li>
+        <li>Send Slack alert to finance channel with aging summary</li>
+        <li>Auto-send gentle reminder email to client after 7 days overdue</li>
+        <li>Escalate to a dedicated Slack thread after 14 days overdue</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Batch Payment Execution</summary>
+    <div class="details-content">
+      <ul>
+        <li><strong>Trigger:</strong> Finance team approves a batch in the platform</li>
+        <li>n8n receives webhook with batch details (contractor IDs, amounts, currencies, bank details)</li>
+        <li>Routes each payment to the correct provider: Revolut for EU/SEPA, Wise for international, Deel for Deel-managed contractors</li>
+        <li>Calls Revolut Business API or Wise API to create the batch transfer</li>
+        <li>Monitors payment status via polling or webhook callbacks</li>
+        <li>On success: updates platform with transaction IDs and timestamps, marks invoices as paid</li>
+        <li>On failure: flags the specific payment, notifies finance via Slack with error details</li>
+        <li>Posts batch summary to Slack: "February Marley Spoon batch: 6 payments sent via Revolut ($28,940), 1 via Wise ($4,000). 1 Deel sync pending."</li>
+      </ul>
+    </div>
+  </details>
+  <details>
+    <summary>Notion Sync</summary>
+    <div class="details-content">
+      <ul>
+        <li>Sync engagement status and key metrics to a Notion dashboard</li>
+        <li>When a new client is created in Notion, auto-create in the finance platform</li>
+        <li>When a contractor assignment changes in the platform, update the Notion project page</li>
+        <li>Monthly summary pages auto-generated in Notion with financial highlights</li>
+      </ul>
+    </div>
+  </details>
+</div>
+
+<!-- ============ SECTION 8: TECH STACK ============ -->
+<div class="section" id="tech">
+  <h2>8. Recommended Tech Stack</h2>
+
+  <table>
+    <thead><tr><th>Layer</th><th>Recommendation</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Frontend</strong></td><td>Next.js + React + Tailwind CSS</td><td>Fast to build, great DX, server-side rendering for dashboards. Carbon team likely already familiar with React.</td></tr>
+      <tr><td><strong>Backend API</strong></td><td>Next.js API routes or separate Node.js/Express</td><td>Keep it simple. REST API with OpenAPI spec so n8n can call any endpoint.</td></tr>
+      <tr><td><strong>Database</strong></td><td>PostgreSQL</td><td>Relational data (clients, invoices, assignments) fits perfectly. JSONB columns for flexible metadata. Excellent with financial calculations.</td></tr>
+      <tr><td><strong>ORM</strong></td><td>Prisma</td><td>Type-safe database access, auto-generated migrations, great for the data model complexity here.</td></tr>
+      <tr><td><strong>Auth</strong></td><td>Clerk or NextAuth</td><td>Google Workspace SSO for the Carbon team. Role-based access (admin, finance, viewer).</td></tr>
+      <tr><td><strong>File Storage</strong></td><td>Google Cloud Storage or S3</td><td>Store invoice PDFs, contractor documents. Integrate with Google Drive.</td></tr>
+      <tr><td><strong>Invoice Parsing</strong></td><td>Google Document AI or Mindee</td><td>OCR + structured extraction from contractor invoice PDFs. High accuracy on European invoice formats.</td></tr>
+      <tr><td><strong>PDF Generation</strong></td><td>React-PDF or Puppeteer</td><td>Generate branded client invoices from templates.</td></tr>
+      <tr><td><strong>Automation</strong></td><td>n8n (self-hosted)</td><td>Already in the Carbon stack. Connects to everything. Visual workflow builder for non-developers.</td></tr>
+      <tr><td><strong>Hosting</strong></td><td>Vercel (frontend) + Railway or Render (API/DB)</td><td>Low ops overhead. Auto-scaling. Good for a team that doesn't want to manage infrastructure.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>API Design Principles</h3>
+  <p>The API should be the foundation. Every action in the UI goes through the API, which means n8n and any future tool can do the same thing. Key endpoints:</p>
+  <div class="schema-block">
+<span class="comment">// Core resource endpoints</span>
+<span class="keyword">GET/POST</span>   <span class="string">/api/clients</span>
+<span class="keyword">GET/POST</span>   <span class="string">/api/contractors</span>
+<span class="keyword">GET/POST</span>   <span class="string">/api/engagements</span>
+<span class="keyword">GET/POST</span>   <span class="string">/api/assignments</span>
+
+<span class="comment">// Billing cycle</span>
+<span class="keyword">POST</span>       <span class="string">/api/billing/calculate</span>        <span class="comment">// Calculate a period</span>
+<span class="keyword">POST</span>       <span class="string">/api/billing/approve</span>          <span class="comment">// Approve for invoicing</span>
+<span class="keyword">POST</span>       <span class="string">/api/billing/generate-invoices</span> <span class="comment">// Create client invoices</span>
+
+<span class="comment">// Invoice management</span>
+<span class="keyword">GET/POST</span>   <span class="string">/api/invoices/client</span>          <span class="comment">// AR</span>
+<span class="keyword">GET/POST</span>   <span class="string">/api/invoices/contractor</span>      <span class="comment">// AP</span>
+<span class="keyword">POST</span>       <span class="string">/api/invoices/contractor/parse</span> <span class="comment">// Upload + OCR</span>
+<span class="keyword">POST</span>       <span class="string">/api/invoices/verify</span>          <span class="comment">// Cross-check</span>
+
+<span class="comment">// Batch payments</span>
+<span class="keyword">GET</span>        <span class="string">/api/payments/queue</span>           <span class="comment">// Verified invoices ready to pay</span>
+<span class="keyword">POST</span>       <span class="string">/api/payments/batch/create</span>    <span class="comment">// Group by client, create batch</span>
+<span class="keyword">POST</span>       <span class="string">/api/payments/batch/approve</span>   <span class="comment">// Approve and trigger execution</span>
+<span class="keyword">GET</span>        <span class="string">/api/payments/batch/:id</span>       <span class="comment">// Batch status + individual txns</span>
+<span class="keyword">POST</span>       <span class="string">/api/payments/revolut/execute</span> <span class="comment">// Send to Revolut API</span>
+<span class="keyword">POST</span>       <span class="string">/api/payments/wise/execute</span>    <span class="comment">// Send to Wise API</span>
+<span class="keyword">POST</span>       <span class="string">/api/payments/reconcile</span>       <span class="comment">// Sync txn statuses from banks</span>
+
+<span class="comment">// Reporting & KPIs</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/margin</span>           <span class="comment">// Margin by client, contractor, type</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/revenue</span>          <span class="comment">// Revenue breakdown + trends</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/aging</span>            <span class="comment">// AR aging report</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/cashflow</span>         <span class="comment">// Cash flow forecast</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/contractors</span>      <span class="comment">// Active count, hours, utilization</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/clients</span>          <span class="comment">// Active count, payment behavior</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/kpi-snapshot</span>     <span class="comment">// Dashboard summary cards</span>
+<span class="keyword">GET</span>        <span class="string">/api/reports/export/:format</span>  <span class="comment">// CSV, PDF, or Google Sheets push</span>
+
+<span class="comment">// Webhooks for n8n</span>
+<span class="keyword">POST</span>       <span class="string">/api/webhooks/payment-received</span>
+<span class="keyword">POST</span>       <span class="string">/api/webhooks/invoice-received</span>
+<span class="keyword">POST</span>       <span class="string">/api/webhooks/revolut/callback</span> <span class="comment">// Payment settlement updates</span>
+<span class="keyword">POST</span>       <span class="string">/api/webhooks/wise/callback</span>    <span class="comment">// Payment settlement updates</span>
+  </div>
+</div>
+
+<!-- ============ SECTION 9: ROADMAP ============ -->
+<div class="section" id="roadmap">
+  <h2>9. Implementation Roadmap</h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="phase-time">Phase 1 — Weeks 1-4</div>
+      <div class="phase-title">Foundation: Replace the Spreadsheets</div>
+      <p style="margin-top:6px; font-size:14px;">Database setup, contractor/client management, assignment configuration with the three rate models. Manual time entry. Auto-calculation of billing periods. Basic dashboard showing what the "Totals for Model" sheet was supposed to show. Import existing data from the 2026 spreadsheet.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="phase-time">Phase 2 — Weeks 5-8</div>
+      <div class="phase-title">Invoice Lifecycle</div>
+      <p style="margin-top:6px; font-size:14px;">Client invoice PDF generation. Contractor invoice upload and parsing. Cross-check engine to verify contractor invoices against calculated amounts. Full AR and AP status tracking with date stamps. Basic payment recording.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="phase-time">Phase 3 — Weeks 9-12</div>
+      <div class="phase-title">Automation Layer</div>
+      <p style="margin-top:6px; font-size:14px;">n8n integration: monthly billing workflows, Slack notifications, Gmail invoice sending. Contractor invoice email ingestion and auto-parsing. Overdue payment alerts. Notion sync for project/engagement status.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="phase-time">Phase 4 — Weeks 13-16</div>
+      <div class="phase-title">Multi-Service Expansion</div>
+      <p style="margin-top:6px; font-size:14px;">Add Product Studio, Recruitment, and BOT billing models. Milestone-based billing. Retainer management. Engagement type-specific dashboards and reporting.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="phase-time">Phase 5 — Weeks 17-20</div>
+      <div class="phase-title">Advanced Features</div>
+      <p style="margin-top:6px; font-size:14px;">Cash flow forecasting. Multi-currency with exchange rate management. Bank reconciliation automation. Advanced reporting: margin trends, client profitability, contractor utilization. Data migration from 2024 and 2025 workbooks for historical reporting.</p>
+    </div>
+  </div>
+
+  <h3>Estimated Effort</h3>
+  <div style="margin: 16px 0;">
+    <div class="metric-row">
+      <div class="metric-label">Phase 1: Foundation</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:20%"></div></div>
+      <div class="metric-val">4 weeks</div>
+    </div>
+    <div class="metric-row">
+      <div class="metric-label">Phase 2: Invoicing</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:20%"></div></div>
+      <div class="metric-val">4 weeks</div>
+    </div>
+    <div class="metric-row">
+      <div class="metric-label">Phase 3: Automation</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:20%"></div></div>
+      <div class="metric-val">4 weeks</div>
+    </div>
+    <div class="metric-row">
+      <div class="metric-label">Phase 4: Multi-service</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:20%"></div></div>
+      <div class="metric-val">4 weeks</div>
+    </div>
+    <div class="metric-row">
+      <div class="metric-label">Phase 5: Advanced</div>
+      <div class="metric-bar"><div class="metric-fill" style="width:20%"></div></div>
+      <div class="metric-val">4 weeks</div>
+    </div>
+  </div>
+  <p>Total estimated timeline: <strong>~20 weeks</strong> with a small team (1-2 full-stack developers). Phase 1 alone gets you off spreadsheets. Each subsequent phase adds value incrementally.</p>
+
+  <h3>Migration Strategy</h3>
+  <p>Run the new platform alongside the spreadsheets for one full billing cycle (one month). Compare outputs to verify calculations match. Once confirmed, cut over completely. Historical data from 2024 and 2025 can be imported in Phase 5 for long-term reporting, but it's not a blocker for going live.</p>
+</div>
+
+<!-- ============ CLOSING ============ -->
+<div class="section">
+  <h2>What This Replaces</h2>
+  <table>
+    <thead><tr><th>Current (Spreadsheets)</th><th>Future (Carbon Finance Hub)</th></tr></thead>
+    <tbody>
+      <tr><td>One workbook per year, manually created</td><td>Continuous, all years in one system</td></tr>
+      <tr><td>Monthly sheets with copy-paste setup</td><td>Auto-generated billing periods</td></tr>
+      <tr><td>Manual rate × time calculations</td><td>Auto-calculated from assignments and time entries</td></tr>
+      <tr><td>#REF! errors in summary dashboards</td><td>Real-time, always-accurate dashboards</td></tr>
+      <tr><td>Ctrl+F to find a contractor's bank details</td><td>Searchable contractor profiles</td></tr>
+      <tr><td>Boolean "Paid" column with no dates</td><td>Full payment lifecycle with timestamps</td></tr>
+      <tr><td>No connection to email, Slack, or Notion</td><td>Automated workflows across all tools</td></tr>
+      <tr><td>Staffing only</td><td>Staffing, Product Studio, Recruitment, BOT</td></tr>
+      <tr><td>No invoice verification</td><td>Automated cross-check with OCR parsing</td></tr>
+      <tr><td>No audit trail</td><td>Full history of every change</td></tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+</body>
+</html>
