@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbon Finance Platform — Competitive Landscape</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #212f50;
+    --blue: #5a92ee;
+    --electric: #2563EB;
+    --orange: #E85D04;
+    --ice: #BFD7F0;
+    --soft: #D6E8FA;
+    --text: #1A1A1A;
+    --bg: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: var(--text); background: var(--bg); line-height: 1.65; font-size: 15px; }
+
+  .header { text-align: center; padding: 48px 24px 36px; }
+  .header svg { margin-bottom: 24px; }
+  .header h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 32px; color: var(--navy); margin-bottom: 8px; }
+  .header .subtitle { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 16px; color: var(--blue); }
+  .header .date { font-size: 13px; color: var(--blue); margin-top: 8px; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px 64px; }
+  .section { margin-bottom: 48px; }
+  .section h2 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 22px; color: var(--navy); margin-bottom: 16px; }
+  .section h3 { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 16px; color: var(--blue); margin: 20px 0 10px; }
+  .section p { margin-bottom: 12px; }
+  ul { padding-left: 24px; margin: 8px 0 16px; }
+  li { margin-bottom: 6px; font-size: 14px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card { background: white; border: 1px solid var(--ice); border-radius: 12px; padding: 20px; transition: box-shadow 0.2s; }
+  .card:hover { box-shadow: 0 4px 16px rgba(33,47,80,0.08); }
+  .card .card-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 8px; }
+  .card .card-body { font-size: 13px; line-height: 1.6; }
+  .card.accent { border-left: 4px solid var(--electric); }
+  .card.highlight { border-left: 4px solid var(--orange); }
+  .card.green { border-left: 4px solid #16a34a; }
+
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; margin: 2px; }
+  .tag-blue { background: var(--soft); color: var(--navy); }
+  .tag-green { background: #d4edda; color: #155724; }
+  .tag-orange { background: #fff3cd; color: #856404; }
+  .tag-red { background: #f8d7da; color: #721c24; }
+  .tag-purple { background: #e8d5f5; color: #4a1d6e; }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th { background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 12px; text-align: left; padding: 10px 12px; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--ice); vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fbff; }
+
+  /* Competitor card */
+  .comp-card { border: 1px solid var(--ice); border-radius: 12px; padding: 24px; margin: 16px 0; }
+  .comp-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+  .comp-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 20px; color: var(--navy); }
+  .comp-type { font-size: 12px; font-weight: 500; color: var(--blue); }
+  .comp-desc { font-size: 14px; margin-bottom: 16px; }
+  .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 640px) { .comp-grid { grid-template-columns: 1fr; } }
+  .comp-section-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; color: var(--blue); margin-bottom: 6px; }
+
+  /* Verdict bar */
+  .verdict { background: var(--soft); border-radius: 10px; padding: 16px 20px; margin-top: 16px; }
+  .verdict-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 13px; color: var(--navy); margin-bottom: 4px; }
+  .verdict-text { font-size: 13px; }
+
+  /* Score dots */
+  .score { display: flex; gap: 4px; align-items: center; margin: 4px 0; }
+  .score-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ice); }
+  .score-dot.filled { background: var(--electric); }
+  .score-label { font-size: 11px; margin-left: 6px; color: var(--text); }
+
+  /* Matrix */
+  .matrix-table th:first-child { min-width: 180px; }
+  .matrix-table td:first-child { font-weight: 600; font-size: 12px; }
+  .cell-yes { color: #16a34a; font-weight: 600; }
+  .cell-partial { color: #d97706; font-weight: 600; }
+  .cell-no { color: #dc2626; font-weight: 600; }
+  .cell-na { color: #9ca3af; }
+
+  details { margin: 12px 0; border: 1px solid var(--ice); border-radius: 10px; overflow: hidden; }
+  summary { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: var(--navy); padding: 14px 20px; cursor: pointer; background: var(--soft); list-style: none; display: flex; align-items: center; gap: 8px; }
+  summary::before { content: '▸'; display: inline-block; transition: transform 0.2s; color: var(--blue); }
+  details[open] summary::before { transform: rotate(90deg); }
+  summary::-webkit-details-marker { display: none; }
+  .details-content { padding: 16px 20px; font-size: 14px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0)"><path d="M7.26582 -3.05176e-05L0.000358582 9.53589H47.0745L40.3388 -3.05176e-05H7.26582Z" fill="url(#p0)"/><path d="M23.6127 39.478L0 9.53594H47.0741L23.6127 39.478Z" fill="url(#p1)"/><path d="M23.6127 39.478L0 9.53594H12.2151L23.6127 39.478Z" fill="url(#p2)"/><path d="M23.6129 39.478L47.2256 9.53594H35.0106L23.6129 39.478Z" fill="url(#p3)"/><path d="M16.2014 -4.57764e-05L23.6258 9.53587L31.0244 -4.57764e-05H16.2014Z" fill="url(#p4)"/></g>
+    <path d="M70.7724 34.3862C64.1711 34.3862 59.0318 29.3355 59.0318 22.8671C59.0318 16.3987 64.1711 11.3923 70.7724 11.3923C76.7978 11.3923 81.5383 15.6012 82.2915 21.2278H75.5573C74.937 19.1012 73.2091 17.5949 70.7724 17.5949C67.804 17.5949 65.6331 19.8544 65.6331 22.8671C65.6331 25.8798 67.804 28.1836 70.7724 28.1836C73.2091 28.1836 74.937 26.6773 75.5573 24.5507H82.2915C81.5826 30.1773 76.7978 34.3862 70.7724 34.3862Z" fill="#222F50"/>
+    <path d="M94.7126 34.3862C88.5543 34.3862 83.7695 29.3798 83.7695 22.8671C83.7695 16.3987 88.5543 11.3923 94.7126 11.3923C97.4152 11.3923 99.6747 12.367 101.092 14.1392V11.8353H107.339V33.9432H101.092V31.6393C99.6747 33.3672 97.4152 34.3862 94.7126 34.3862ZM95.5987 28.1393C98.5671 28.1393 100.782 25.9684 100.782 22.8671C100.782 19.8101 98.5671 17.5949 95.5987 17.5949C92.586 17.5949 90.3708 19.8101 90.3708 22.8671C90.3708 25.9684 92.5417 28.1393 95.5987 28.1393Z" fill="#222F50"/>
+    <path d="M117.692 33.9432H111.091V11.8353H117.382V14.7594C118.49 12.9429 120.528 11.8353 123.452 11.8353H125.047V18.5253H122.522C119.154 18.5253 117.692 20.0316 117.692 23.3101V33.9432Z" fill="#222F50"/>
+    <path d="M140.02 34.3862C137.273 34.3862 135.058 33.3672 133.64 31.6393V33.9432H127.349V3.37321H133.95V13.7847C135.412 12.2341 137.494 11.3923 140.02 11.3923C146.178 11.3923 150.963 16.3987 150.963 22.8671C150.963 29.3798 146.178 34.3862 140.02 34.3862ZM139.134 28.1393C142.146 28.1393 144.361 25.9684 144.361 22.8671C144.361 19.7658 142.146 17.5949 139.134 17.5949C136.121 17.5949 133.95 19.7658 133.95 22.8671C133.95 25.9684 136.121 28.1393 139.134 28.1393Z" fill="#222F50"/>
+    <path d="M164.274 34.3862C157.628 34.3862 152.445 29.3355 152.445 22.8671C152.445 16.3987 157.628 11.3923 164.274 11.3923C170.919 11.3923 176.059 16.3987 176.059 22.8671C176.059 29.3355 170.919 34.3862 164.274 34.3862ZM164.274 28.1836C167.286 28.1836 169.457 25.9684 169.457 22.8671C169.457 19.8101 167.286 17.5949 164.274 17.5949C161.217 17.5949 159.046 19.8101 159.046 22.8671C159.046 25.9684 161.217 28.1836 164.274 28.1836Z" fill="#222F50"/>
+    <path d="M185.069 33.9432H178.468V11.8353H184.759V13.7847C186.088 12.2341 188.215 11.3923 190.785 11.3923C196.234 11.3923 200 15.424 200 21.4494V33.9432H193.399V22.1139C193.399 19.3228 191.937 17.6392 189.367 17.6392C186.753 17.6392 185.069 19.3671 185.069 22.1139V33.9432Z" fill="#222F50"/>
+    <defs><linearGradient id="p0" x1="23.6" y1="10.77" x2="23" y2="-0.82" gradientUnits="userSpaceOnUse"><stop stop-color="#7CC2FF"/><stop offset=".99" stop-color="#E2EDFE"/></linearGradient><linearGradient id="p1" x1="29.42" y1="-0.66" x2="10.59" y2="31.96" gradientUnits="userSpaceOnUse"><stop stop-color="#88B5FA"/><stop offset=".99" stop-color="#E2EDFE"/></linearGradient><linearGradient id="p2" x1="5.5" y1="8.49" x2="18.48" y2="30.96" gradientUnits="userSpaceOnUse"><stop stop-color="#528CED"/><stop offset=".99" stop-color="#B1CCF8"/></linearGradient><linearGradient id="p3" x1="41.72" y1="8.49" x2="28.75" y2="30.96" gradientUnits="userSpaceOnUse"><stop stop-color="#528CED"/><stop offset=".99" stop-color="#B1CCF8"/></linearGradient><linearGradient id="p4" x1="23.39" y1="-1.27" x2="25.24" y2="9.25" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset=".99" stop-color="#C5E1FE"/></linearGradient><clipPath id="clip0"><rect width="47.23" height="39.48" fill="white"/></clipPath></defs>
+  </svg>
+  <h1>Competitive Landscape Analysis</h1>
+  <div class="subtitle">Finance Ops Platforms vs. Building Custom</div>
+  <div class="date">Internal Research, March 2026</div>
+</div>
+
+<div class="container">
+
+<!-- TLDR -->
+<div class="section">
+  <h2>The Short Version</h2>
+  <p>None of these platforms solve Carbon's specific problem. Carbon sits at the intersection of staffing agency billing, contractor payment management, and multi-service project accounting. Existing tools each cover a slice, but none handle the full workflow: calculating contractor rates with Carbon's margin, generating client invoices from time data, cross-checking contractor invoices, and executing batch payments. That intersection is precisely why custom software makes sense.</p>
+
+  <div class="card-grid">
+    <div class="card accent">
+      <div class="card-title">Spend Management Tools</div>
+      <div class="card-body">Pleo, Yokoy, Ramp, Brex. Built for companies managing employee expenses and corporate cards. Not designed for staffing agency billing or contractor rate calculations.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Contractor Payment Platforms</div>
+      <div class="card-body">Deel, Remote. Handle paying contractors globally, but from the employer's side. They don't calculate your margin, generate client invoices, or manage AR.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">Staffing Agency Software</div>
+      <div class="card-body">Bullhorn, COATS, Ceipal. Full staffing platforms with billing, but locked to the staffing model. No support for product studio, recruitment fees, or BOT projects.</div>
+    </div>
+    <div class="card accent">
+      <div class="card-title">AP Automation</div>
+      <div class="card-body">Tipalti, Stampli. Great at processing invoices and paying vendors, but no concept of staffing rates, margin calculation, or client billing.</div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPETITOR CARDS -->
+<div class="section">
+  <h2>Platform-by-Platform Breakdown</h2>
+
+  <!-- PLEO -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <div>
+        <div class="comp-name">Pleo</div>
+        <div class="comp-type">Spend Management + Corporate Cards</div>
+      </div>
+      <div>
+        <span class="tag tag-blue">EU-based</span>
+        <span class="tag tag-green">20,000+ companies</span>
+      </div>
+    </div>
+    <div class="comp-desc">Smart company cards with automated expense tracking, receipt capture, and real-time spending limits. Primarily an employee expense tool.</div>
+    <div class="comp-grid">
+      <div>
+        <div class="comp-section-title">What it does well</div>
+        <ul>
+          <li>Real-time employee spending controls</li>
+          <li>AI-powered receipt capture and categorization</li>
+          <li>Accounting integrations (Xero, QuickBooks, etc.)</li>
+          <li>Multi-currency corporate cards</li>
+          <li>Per-employee spending limits</li>
+        </ul>
+      </div>
+      <div>
+        <div class="comp-section-title">What it doesn't do</div>
+        <ul>
+          <li>No contractor rate management</li>
+          <li>No client invoicing or AR tracking</li>
+          <li>No staffing-specific billing logic</li>
+          <li>No margin calculation</li>
+          <li>No batch payment to external contractors</li>
+          <li>No time tracking or hours-based billing</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-title">Fit for Carbon</div>
+      <div class="verdict-text">Pleo could complement Carbon's internal expense management (team travel, subscriptions, office costs), but it has zero overlap with the core AR/AP staffing operations challenge.</div>
+    </div>
+  </div>
+
+  <!-- YOKOY -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <div>
+        <div class="comp-name">Yokoy (now Perk)</div>
+        <div class="comp-type">AI Spend Management Suite</div>
+      </div>
+      <div>
+        <span class="tag tag-blue">EU-based</span>
+        <span class="tag tag-purple">Acquired by TravelPerk Jan 2025</span>
+      </div>
+    </div>
+    <div class="comp-desc">AI-powered platform for invoice processing, expense management, and compliance. Strong on automation and multi-entity support. Now part of TravelPerk's "Perk" platform.</div>
+    <div class="comp-grid">
+      <div>
+        <div class="comp-section-title">What it does well</div>
+        <ul>
+          <li>AI extraction from invoices (OCR + validation)</li>
+          <li>Custom approval workflows per entity</li>
+          <li>Multi-entity and multi-country support</li>
+          <li>Built-in compliance (GDPR, GoBD)</li>
+          <li>Real-time spend analytics</li>
+        </ul>
+      </div>
+      <div>
+        <div class="comp-section-title">What it doesn't do</div>
+        <ul>
+          <li>No staffing rate or margin calculation</li>
+          <li>No client-side invoicing (only AP, not AR)</li>
+          <li>No contractor assignment management</li>
+          <li>No time-based billing engine</li>
+          <li>No batch payment execution</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-title">Fit for Carbon</div>
+      <div class="verdict-text">The AI invoice extraction is interesting tech to learn from. But Yokoy is built for internal corporate spend, not staffing agency operations. The TravelPerk acquisition further narrows its focus toward travel and expense.</div>
+    </div>
+  </div>
+
+  <!-- DEEL -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <div>
+        <div class="comp-name">Deel</div>
+        <div class="comp-type">Global Contractor & Employee Payments</div>
+      </div>
+      <div>
+        <span class="tag tag-green">150+ countries</span>
+        <span class="tag tag-blue">Already used by Carbon</span>
+      </div>
+    </div>
+    <div class="comp-desc">Global platform for hiring and paying contractors and employees. Handles compliance, contracts, invoicing, and payments across 150+ countries. Carbon already uses Deel for some contractors (e.g. Lucas Schenatto).</div>
+    <div class="comp-grid">
+      <div>
+        <div class="comp-section-title">What it does well</div>
+        <ul>
+          <li>Global contractor payments in 150+ countries</li>
+          <li>Automated invoicing from contractor side</li>
+          <li>Compliance and contract management</li>
+          <li>15+ payment methods, 9 withdrawal options</li>
+          <li>Tax form collection and reporting</li>
+          <li>API for integration</li>
+        </ul>
+      </div>
+      <div>
+        <div class="comp-section-title">What it doesn't do</div>
+        <ul>
+          <li>No client billing or AR management</li>
+          <li>No margin/markup calculation</li>
+          <li>No multi-client assignment tracking</li>
+          <li>No client invoice generation</li>
+          <li>No concept of "Carbon as intermediary"</li>
+          <li>No batch payments to non-Deel contractors</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-title">Fit for Carbon</div>
+      <div class="verdict-text">Deel is already part of Carbon's stack for specific contractors. It should remain an integration point (sync payment status, manage Deel-based contractors), but it cannot replace the core billing engine. Deel sees the world as "employer pays contractor." Carbon's world is "client pays Carbon, Carbon pays contractor, and the margin matters."</div>
+    </div>
+  </div>
+
+  <!-- REMOTE -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <div>
+        <div class="comp-name">Remote.com</div>
+        <div class="comp-type">Global HR & Contractor Payments</div>
+      </div>
+      <div>
+        <span class="tag tag-green">Global</span>
+        <span class="tag tag-blue">EOR + Contractor</span>
+      </div>
+    </div>
+    <div class="comp-desc">Similar to Deel: global contractor and employee management with automated invoicing, compliance, and multi-currency payments. Offers EOR (Employer of Record) services.</div>
+    <div class="comp-grid">
+      <div>
+        <div class="comp-section-title">What it does well</div>
+        <ul>
+          <li>Automated contractor invoicing</li>
+          <li>Scheduled recurring payments</li>
+          <li>Multi-currency with guaranteed payouts</li>
+          <li>Contractor self-service portal</li>
+          <li>Compliance across jurisdictions</li>
+        </ul>
+      </div>
+      <div>
+        <div class="comp-section-title">What it doesn't do</div>
+        <ul>
+          <li>Same gaps as Deel: no client billing, no margin, no AR</li>
+          <li>No staffing agency workflow</li>
+          <li>No multi-client contractor assignments</li>
+          <li>No cross-checking logic</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-title">Fit for Carbon</div>
+      <div class="verdict-text">Another potential integration for paying specific contractors, but not a replacement for the core system. Same fundamental limitation as Deel: built for direct employer-contractor relationships, not intermediary models.</div>
+    </div>
+  </div>
+
+  <!-- BULLHORN -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <div>
+        <div class="comp-name">Bullhorn One</div>
+        <div class="comp-type">Staffing Agency ATS + Billing</div>
+      </div>
+      <div>
+        <span class="tag tag-orange">$20K+/year minimum</span>
+        <span class="tag tag-blue">Enterprise staffing</span>
+      </div>
+    </div>
+    <div class="comp-desc">Full-service staffing platform: ATS, CRM, onboarding, time tracking, invoicing, and payroll. Processes $24B+ in invoices annually. The closest to what Carbon needs in the staffing vertical.</div>
+    <div class="comp-grid">
+      <div>
+        <div class="comp-section-title">What it does well</div>
+        <ul>
+          <li>Staffing-specific billing rules engine</li>
+          <li>Time capture and management</li>
+          <li>Client invoicing with discounts, rebates, surcharges</li>
+          <li>Batch invoice generation</li>
+          <li>Payroll integration</li>
+          <li>Accounting system integration</li>
+        </ul>
+      </div>
+      <div>
+        <div class="comp-section-title">What it doesn't do</div>
+        <ul>
+          <li>Locked to staffing model only</li>
+          <li>No product studio/milestone billing</li>
+          <li>No recruitment fee structures</li>
+          <li>No BOT engagement support</li>
+          <li>No Revolut/Wise batch payments</li>
+          <li>No n8n/Notion/Slack integrations</li>
+          <li>Expensive: $99-315/user/mo + $20K+ implementation</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-title">Fit for Carbon</div>
+      <div class="verdict-text">The closest existing product, but still a mismatch. Bullhorn is designed for large, staffing-only agencies. Carbon's multi-service model (staffing + product studio + recruitment + BOT) doesn't fit. The pricing is also steep for a tool that only covers part of the need. And it has no native connection to Carbon's existing stack (n8n, Notion, Slack, Revolut, Wise).</div>
+    </div>
+  </div>
+
+  <!-- TIPALTI -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <div>
+        <div class="comp-name">Tipalti</div>
+        <div class="comp-type">AP Automation + Global Payments</div>
+      </div>
+      <div>
+        <span class="tag tag-blue">120 currencies</span>
+        <span class="tag tag-green">200+ countries</span>
+      </div>
+    </div>
+    <div class="comp-desc">Enterprise AP automation: vendor onboarding, invoice processing with AI/OCR, approval workflows, payment execution, and tax compliance. Strong on the "paying people" side.</div>
+    <div class="comp-grid">
+      <div>
+        <div class="comp-section-title">What it does well</div>
+        <ul>
+          <li>AI-powered invoice processing and OCR</li>
+          <li>Global payments: ACH, wire, PayPal, checks</li>
+          <li>Tax compliance (1099, W-8, W-9)</li>
+          <li>Self-service vendor onboarding</li>
+          <li>Approval workflows</li>
+          <li>ERP integrations (NetSuite, SAP, etc.)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="comp-section-title">What it doesn't do</div>
+        <ul>
+          <li>AP only. No AR, no client invoicing.</li>
+          <li>No rate calculation or margin tracking</li>
+          <li>No staffing-specific logic</li>
+          <li>No time-based billing</li>
+          <li>No concept of client engagements</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-title">Fit for Carbon</div>
+      <div class="verdict-text">Tipalti could theoretically handle Carbon's AP side (paying contractors), but it's overkill for the payment execution alone, and it leaves the entire AR side and billing logic uncovered. The invoice OCR technology is worth noting as a reference for the custom build.</div>
+    </div>
+  </div>
+
+  <!-- RAMP -->
+  <div class="comp-card">
+    <div class="comp-header">
+      <div>
+        <div class="comp-name">Ramp</div>
+        <div class="comp-type">Corporate Cards + AP Automation</div>
+      </div>
+      <div>
+        <span class="tag tag-blue">US-focused</span>
+        <span class="tag tag-green">25,000+ companies</span>
+      </div>
+    </div>
+    <div class="comp-desc">Corporate cards with AI-powered expense management and AP automation. Strong on cost savings (auto-flags duplicate subscriptions, blocks out-of-policy spend). US-centric.</div>
+    <div class="comp-grid">
+      <div>
+        <div class="comp-section-title">What it does well</div>
+        <ul>
+          <li>AI auto-codes 60% of invoices</li>
+          <li>Blocks out-of-policy spend at swipe</li>
+          <li>Invoice processing and approval workflows</li>
+          <li>Instant card issuance for contractors</li>
+          <li>ERP integration and reconciliation</li>
+        </ul>
+      </div>
+      <div>
+        <div class="comp-section-title">What it doesn't do</div>
+        <ul>
+          <li>US-focused, limited EU support</li>
+          <li>No staffing billing or rate management</li>
+          <li>No client invoicing</li>
+          <li>No Revolut/Wise integration</li>
+          <li>No multi-service engagement tracking</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      <div class="verdict-title">Fit for Carbon</div>
+      <div class="verdict-text">Wrong geography, wrong use case. Ramp is built for US companies managing internal spend. Carbon needs EU-focused contractor payment with staffing-specific billing. Not a fit.</div>
+    </div>
+  </div>
+</div>
+
+<!-- COMPARISON MATRIX -->
+<div class="section">
+  <h2>Feature Comparison Matrix</h2>
+  <p>How each platform maps against Carbon's core requirements.</p>
+
+  <div style="overflow-x: auto;">
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>Carbon Requirement</th>
+        <th>Pleo</th>
+        <th>Yokoy</th>
+        <th>Deel</th>
+        <th>Remote</th>
+        <th>Bullhorn</th>
+        <th>Tipalti</th>
+        <th>Ramp</th>
+        <th>Custom Build</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Contractor rate management (hourly/daily/monthly)</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Carbon margin/markup calculation</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-partial">Partial</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Client invoice generation (AR)</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Contractor invoice intake + OCR</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-partial">Partial</td>
+        <td class="cell-partial">Partial</td>
+        <td class="cell-partial">Partial</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Invoice cross-check (calculated vs. invoiced)</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-partial">Partial</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Batch payments (Revolut/Wise)</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-partial">Own rails</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Multi-service billing (staffing + studio + recruitment + BOT)</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">Staffing only</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Time tracking / hours-based billing</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-partial">Basic</td>
+        <td class="cell-partial">Basic</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>n8n / Notion / Slack integration</td>
+        <td class="cell-partial">Slack only</td>
+        <td class="cell-partial">Slack only</td>
+        <td class="cell-partial">Slack only</td>
+        <td class="cell-partial">Slack only</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-partial">Slack only</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>Margin / profitability reporting</td>
+        <td class="cell-no">No</td>
+        <td class="cell-partial">Spend only</td>
+        <td class="cell-no">No</td>
+        <td class="cell-no">No</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-no">No</td>
+        <td class="cell-partial">Spend only</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+      <tr>
+        <td>EU contractor focus (SEPA, IBAN, EUR/PLN/RON)</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-partial">US-centric</td>
+        <td class="cell-yes">Yes</td>
+        <td class="cell-no">US only</td>
+        <td class="cell-yes">Yes</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- WHAT TO LEARN -->
+<div class="section">
+  <h2>What to Learn from Each</h2>
+  <p>Even though none of these platforms replace the need for a custom build, each has something worth studying.</p>
+
+  <div class="card-grid">
+    <div class="card green">
+      <div class="card-title">From Pleo: Spending Controls UX</div>
+      <div class="card-body">The way Pleo handles per-user spending limits and real-time visibility is clean. The Carbon platform should have similar granular controls for who can approve payments and up to what amount.</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">From Yokoy: AI Invoice Extraction</div>
+      <div class="card-body">Yokoy's AI parsing of invoices is the most relevant feature for Carbon. The custom build should match this: auto-extract amount, date, invoice number from contractor PDFs.</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">From Deel: Contractor Self-Service</div>
+      <div class="card-body">Deel's contractor portal where people submit their own invoices and choose payment methods is a good model. Carbon's contractors could have a simple portal to submit invoices and track payment status.</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">From Bullhorn: Billing Rules Engine</div>
+      <div class="card-body">Bullhorn's approach of setting billing rules at the job level (discounts, surcharges, custom terms) is the right architecture. Carbon's assignment-level rate configuration should work similarly.</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">From Tipalti: Payment Orchestration</div>
+      <div class="card-body">The way Tipalti routes payments to the right method per vendor is the model for Carbon's Revolut/Wise/Deel routing. Payee chooses method, system executes accordingly.</div>
+    </div>
+    <div class="card green">
+      <div class="card-title">From Ramp: AI Coding + Anomaly Detection</div>
+      <div class="card-body">Ramp's 60% auto-coding rate and duplicate detection is worth emulating. Carbon's system should auto-flag anomalies: unusually high hours, duplicate invoices, missing submissions.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BUILD VS BUY VERDICT -->
+<div class="section">
+  <h2>Build vs. Buy: The Verdict</h2>
+
+  <div class="card-grid">
+    <div class="card highlight">
+      <div class="card-title">The "Buy" Problem</div>
+      <div class="card-body">
+        To replicate what Carbon needs with off-the-shelf tools, you'd need to stitch together at minimum: Bullhorn (staffing billing, ~$20K+/yr) + Tipalti or similar (AP automation) + Deel/Wise (payments) + a custom integration layer. Total cost: $40-80K/year in subscriptions alone, plus ongoing integration maintenance. And you still wouldn't have multi-service billing or the n8n/Notion workflow.
+      </div>
+    </div>
+    <div class="card green">
+      <div class="card-title">The "Build" Case</div>
+      <div class="card-body">
+        A custom platform costs ~20 weeks of development (per the blueprint). At Carbon's rates, that's a one-time investment that then runs at hosting cost (~$50-100/month). It does exactly what Carbon needs, integrates with the existing stack, and evolves as the business grows. No per-user fees that scale with headcount. No feature requests to a vendor's roadmap.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px;">
+    <table>
+      <thead><tr><th>Factor</th><th>Buy (stitch together)</th><th>Build Custom</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Year 1 cost</strong></td><td>$40-80K subscriptions + integration work</td><td>~20 weeks dev time (one-time) + ~$1,200/yr hosting</td></tr>
+        <tr><td><strong>Ongoing annual cost</strong></td><td>$40-80K (grows with headcount)</td><td>~$1,200/yr hosting + maintenance time</td></tr>
+        <tr><td><strong>Covers all 4 service types</strong></td><td>No. Staffing only via Bullhorn.</td><td>Yes. Built for it from day one.</td></tr>
+        <tr><td><strong>Carbon margin logic</strong></td><td>Manual workarounds</td><td>Core feature</td></tr>
+        <tr><td><strong>n8n + Notion + Slack</strong></td><td>Custom glue code between platforms</td><td>Native API, purpose-built workflows</td></tr>
+        <tr><td><strong>Revolut/Wise batch payments</strong></td><td>Not available in any platform</td><td>Built-in with smart routing</td></tr>
+        <tr><td><strong>Time to value</strong></td><td>Months of integration + configuration</td><td>Phase 1 (4 weeks) replaces spreadsheets</td></tr>
+        <tr><td><strong>Vendor risk</strong></td><td>Multiple vendor dependencies</td><td>Carbon owns the code</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- SOURCES -->
+<div class="section">
+  <h2>Sources</h2>
+  <div style="font-size: 13px; line-height: 2;">
+    <a href="https://www.pleo.io/en" target="_blank" style="color: var(--blue);">Pleo Official Website</a><br>
+    <a href="https://yokoy.io/" target="_blank" style="color: var(--blue);">Yokoy / Perk Official Website</a><br>
+    <a href="https://www.deel.com/blog/best-contractor-management-software-for-global-payments/" target="_blank" style="color: var(--blue);">Deel Contractor Management Features</a><br>
+    <a href="https://remote.com/global-hr/contractor-invoicing-and-payments" target="_blank" style="color: var(--blue);">Remote.com Contractor Invoicing</a><br>
+    <a href="https://www.bullhorn.com/pay-bill/" target="_blank" style="color: var(--blue);">Bullhorn Pay & Bill</a><br>
+    <a href="https://www.bullhorn.com/pricing/" target="_blank" style="color: var(--blue);">Bullhorn Pricing</a><br>
+    <a href="https://tipalti.com/" target="_blank" style="color: var(--blue);">Tipalti Finance Automation</a><br>
+    <a href="https://ramp.com/" target="_blank" style="color: var(--blue);">Ramp Corporate Cards & AP</a><br>
+    <a href="https://www.g2.com/products/pleo/pricing" target="_blank" style="color: var(--blue);">Pleo Pricing (G2)</a><br>
+    <a href="https://www.pin.com/blog/bullhorn-pricing/" target="_blank" style="color: var(--blue);">Bullhorn Pricing Analysis</a><br>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
