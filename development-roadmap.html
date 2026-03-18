@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbon Finance Hub — Development Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #212f50;
+    --blue: #5a92ee;
+    --electric: #2563EB;
+    --orange: #E85D04;
+    --ice: #BFD7F0;
+    --soft: #D6E8FA;
+    --text: #1A1A1A;
+    --bg: #ffffff;
+    --green: #16a34a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif; color: var(--text); background: var(--bg); line-height: 1.65; font-size: 15px; }
+
+  .header { text-align: center; padding: 48px 24px 36px; }
+  .header svg { margin-bottom: 24px; }
+  .header h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 32px; color: var(--navy); margin-bottom: 8px; }
+  .header .subtitle { font-family: 'Montserrat', sans-serif; font-weight: 500; font-size: 16px; color: var(--blue); }
+  .header .date { font-size: 13px; color: var(--blue); margin-top: 8px; }
+
+  .container { max-width: 1000px; margin: 0 auto; padding: 0 24px 64px; }
+
+  .nav { position: sticky; top: 0; background: rgba(255,255,255,0.97); backdrop-filter: blur(8px); z-index: 100; padding: 12px 0; margin-bottom: 32px; }
+  .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 24px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .nav a { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: var(--navy); text-decoration: none; padding: 6px 14px; border-radius: 20px; background: var(--soft); transition: all 0.2s; }
+  .nav a:hover { background: var(--blue); color: white; }
+
+  .section { margin-bottom: 48px; }
+  .section h2 { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 22px; color: var(--navy); margin-bottom: 16px; scroll-margin-top: 60px; }
+  .section h3 { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 16px; color: var(--blue); margin: 20px 0 10px; }
+  .section p { margin-bottom: 12px; }
+  ul { padding-left: 24px; margin: 8px 0 16px; }
+  li { margin-bottom: 6px; font-size: 14px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card { background: white; border: 1px solid var(--ice); border-radius: 12px; padding: 20px; transition: box-shadow 0.2s; }
+  .card:hover { box-shadow: 0 4px 16px rgba(33,47,80,0.08); }
+  .card .card-title { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 8px; }
+  .card .card-body { font-size: 13px; line-height: 1.6; }
+  .card.accent { border-left: 4px solid var(--electric); }
+  .card.highlight { border-left: 4px solid var(--orange); }
+  .card.green { border-left: 4px solid var(--green); }
+
+  .tag { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; margin: 2px; }
+  .tag-blue { background: var(--soft); color: var(--navy); }
+  .tag-green { background: #d4edda; color: #155724; }
+  .tag-orange { background: #fff3cd; color: #856404; }
+  .tag-red { background: #f8d7da; color: #721c24; }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 13px; }
+  th { background: var(--navy); color: white; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 12px; text-align: left; padding: 10px 12px; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--ice); vertical-align: top; }
+  tr:nth-child(even) td { background: #f8fbff; }
+
+  details { margin: 12px 0; border: 1px solid var(--ice); border-radius: 10px; overflow: hidden; }
+  summary { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 14px; color: var(--navy); padding: 14px 20px; cursor: pointer; background: var(--soft); list-style: none; display: flex; align-items: center; gap: 8px; }
+  summary::before { content: '▸'; display: inline-block; transition: transform 0.2s; color: var(--blue); }
+  details[open] summary::before { transform: rotate(90deg); }
+  summary::-webkit-details-marker { display: none; }
+  .details-content { padding: 16px 20px; font-size: 14px; }
+
+  /* Hour bars */
+  .hour-bar-row { display: flex; align-items: center; margin: 6px 0; gap: 8px; }
+  .hour-label { font-size: 12px; font-weight: 500; width: 220px; min-width: 220px; }
+  .hour-bar { flex: 1; height: 24px; background: var(--ice); border-radius: 6px; overflow: hidden; position: relative; }
+  .hour-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 8px; font-size: 11px; font-weight: 600; color: white; min-width: fit-content; }
+  .hour-fill.dev { background: var(--electric); }
+  .hour-fill.claude { background: var(--blue); }
+  .hour-val { font-size: 12px; font-weight: 600; color: var(--navy); width: 50px; text-align: right; min-width: 50px; }
+
+  /* Dual bar */
+  .dual-bar { display: flex; height: 24px; border-radius: 6px; overflow: hidden; }
+  .dual-segment { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: white; }
+  .seg-dev { background: var(--electric); }
+  .seg-review { background: var(--orange); }
+  .seg-claude { background: var(--blue); }
+
+  /* Phase cards */
+  .phase-card { border: 2px solid var(--ice); border-radius: 12px; margin: 20px 0; overflow: hidden; }
+  .phase-header { background: var(--navy); color: white; padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .phase-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 18px; }
+  .phase-meta { font-size: 13px; opacity: 0.9; }
+  .phase-body { padding: 20px; }
+
+  /* Gantt-ish */
+  .gantt { margin: 20px 0; }
+  .gantt-row { display: flex; align-items: center; margin: 4px 0; }
+  .gantt-label { font-size: 12px; font-weight: 500; width: 160px; min-width: 160px; }
+  .gantt-track { flex: 1; height: 28px; position: relative; background: #f1f5f9; border-radius: 4px; }
+  .gantt-bar { position: absolute; height: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; color: white; }
+  .gantt-weeks { display: flex; margin-bottom: 4px; padding-left: 160px; }
+  .gantt-week { flex: 1; font-size: 10px; font-weight: 500; color: var(--blue); text-align: center; }
+
+  @media (max-width: 640px) {
+    .header h1 { font-size: 24px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .hour-label { width: 140px; min-width: 140px; }
+    .gantt-label { width: 100px; min-width: 100px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <svg width="200" height="40" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0)"><path d="M7.26582 -3.05176e-05L0.000358582 9.53589H47.0745L40.3388 -3.05176e-05H7.26582Z" fill="url(#p0)"/><path d="M23.6127 39.478L0 9.53594H47.0741L23.6127 39.478Z" fill="url(#p1)"/><path d="M23.6127 39.478L0 9.53594H12.2151L23.6127 39.478Z" fill="url(#p2)"/><path d="M23.6129 39.478L47.2256 9.53594H35.0106L23.6129 39.478Z" fill="url(#p3)"/><path d="M16.2014 -4.57764e-05L23.6258 9.53587L31.0244 -4.57764e-05H16.2014Z" fill="url(#p4)"/></g>
+    <path d="M70.7724 34.3862C64.1711 34.3862 59.0318 29.3355 59.0318 22.8671C59.0318 16.3987 64.1711 11.3923 70.7724 11.3923C76.7978 11.3923 81.5383 15.6012 82.2915 21.2278H75.5573C74.937 19.1012 73.2091 17.5949 70.7724 17.5949C67.804 17.5949 65.6331 19.8544 65.6331 22.8671C65.6331 25.8798 67.804 28.1836 70.7724 28.1836C73.2091 28.1836 74.937 26.6773 75.5573 24.5507H82.2915C81.5826 30.1773 76.7978 34.3862 70.7724 34.3862Z" fill="#222F50"/><path d="M94.7126 34.3862C88.5543 34.3862 83.7695 29.3798 83.7695 22.8671C83.7695 16.3987 88.5543 11.3923 94.7126 11.3923C97.4152 11.3923 99.6747 12.367 101.092 14.1392V11.8353H107.339V33.9432H101.092V31.6393C99.6747 33.3672 97.4152 34.3862 94.7126 34.3862ZM95.5987 28.1393C98.5671 28.1393 100.782 25.9684 100.782 22.8671C100.782 19.8101 98.5671 17.5949 95.5987 17.5949C92.586 17.5949 90.3708 19.8101 90.3708 22.8671C90.3708 25.9684 92.5417 28.1393 95.5987 28.1393Z" fill="#222F50"/><path d="M117.692 33.9432H111.091V11.8353H117.382V14.7594C118.49 12.9429 120.528 11.8353 123.452 11.8353H125.047V18.5253H122.522C119.154 18.5253 117.692 20.0316 117.692 23.3101V33.9432Z" fill="#222F50"/><path d="M140.02 34.3862C137.273 34.3862 135.058 33.3672 133.64 31.6393V33.9432H127.349V3.37321H133.95V13.7847C135.412 12.2341 137.494 11.3923 140.02 11.3923C146.178 11.3923 150.963 16.3987 150.963 22.8671C150.963 29.3798 146.178 34.3862 140.02 34.3862ZM139.134 28.1393C142.146 28.1393 144.361 25.9684 144.361 22.8671C144.361 19.7658 142.146 17.5949 139.134 17.5949C136.121 17.5949 133.95 19.7658 133.95 22.8671C133.95 25.9684 136.121 28.1393 139.134 28.1393Z" fill="#222F50"/><path d="M164.274 34.3862C157.628 34.3862 152.445 29.3355 152.445 22.8671C152.445 16.3987 157.628 11.3923 164.274 11.3923C170.919 11.3923 176.059 16.3987 176.059 22.8671C176.059 29.3355 170.919 34.3862 164.274 34.3862ZM164.274 28.1836C167.286 28.1836 169.457 25.9684 169.457 22.8671C169.457 19.8101 167.286 17.5949 164.274 17.5949C161.217 17.5949 159.046 19.8101 159.046 22.8671C159.046 25.9684 161.217 28.1836 164.274 28.1836Z" fill="#222F50"/><path d="M185.069 33.9432H178.468V11.8353H184.759V13.7847C186.088 12.2341 188.215 11.3923 190.785 11.3923C196.234 11.3923 200 15.424 200 21.4494V33.9432H193.399V22.1139C193.399 19.3228 191.937 17.6392 189.367 17.6392C186.753 17.6392 185.069 19.3671 185.069 22.1139V33.9432Z" fill="#222F50"/>
+    <defs><linearGradient id="p0" x1="23.6" y1="10.77" x2="23" y2="-0.82" gradientUnits="userSpaceOnUse"><stop stop-color="#7CC2FF"/><stop offset=".99" stop-color="#E2EDFE"/></linearGradient><linearGradient id="p1" x1="29.42" y1="-0.66" x2="10.59" y2="31.96" gradientUnits="userSpaceOnUse"><stop stop-color="#88B5FA"/><stop offset=".99" stop-color="#E2EDFE"/></linearGradient><linearGradient id="p2" x1="5.5" y1="8.49" x2="18.48" y2="30.96" gradientUnits="userSpaceOnUse"><stop stop-color="#528CED"/><stop offset=".99" stop-color="#B1CCF8"/></linearGradient><linearGradient id="p3" x1="41.72" y1="8.49" x2="28.75" y2="30.96" gradientUnits="userSpaceOnUse"><stop stop-color="#528CED"/><stop offset=".99" stop-color="#B1CCF8"/></linearGradient><linearGradient id="p4" x1="23.39" y1="-1.27" x2="25.24" y2="9.25" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset=".99" stop-color="#C5E1FE"/></linearGradient><clipPath id="clip0"><rect width="47.23" height="39.48" fill="white"/></clipPath></defs>
+  </svg>
+  <h1>Development Roadmap</h1>
+  <div class="subtitle">Building Carbon Finance Hub with Claude Code</div>
+  <div class="date">Internal Planning, March 2026</div>
+</div>
+
+<div class="nav">
+  <div class="nav-inner">
+    <a href="#approach">Approach</a>
+    <a href="#summary">Hour Summary</a>
+    <a href="#phase1">Phase 1</a>
+    <a href="#phase2">Phase 2</a>
+    <a href="#phase3">Phase 3</a>
+    <a href="#phase4">Phase 4</a>
+    <a href="#phase5">Phase 5</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#risks">Risks</a>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ============ APPROACH ============ -->
+<div class="section" id="approach">
+  <h2>Two Approaches Compared</h2>
+  <p>Both approaches assume 1 full-stack developer. The difference is how much of the actual coding Claude handles versus the human.</p>
+
+  <div class="card-grid">
+    <div class="card accent">
+      <div class="card-title">Approach A: Developer + Claude as Copilot</div>
+      <div class="card-body">
+        The developer writes code with Claude assisting via autocomplete, code generation, and debugging. The human makes all architectural decisions and does the integration work. Claude accelerates the coding but the developer is still the primary builder.
+        <br><br>
+        <strong>Dev responsibility:</strong> ~70% coding, architecture, debugging, deployment<br>
+        <strong>Claude helps with:</strong> Boilerplate, repetitive CRUD, component generation, SQL queries, test writing
+      </div>
+    </div>
+    <div class="card green">
+      <div class="card-title">Approach B: Claude Code as Primary Builder</div>
+      <div class="card-body">
+        Claude Code generates the majority of the codebase from detailed prompts. The developer reviews outputs, makes corrections, handles edge cases, and manages deployment. Think of it as Claude doing 60-70% of the raw coding, with the developer steering, reviewing, and filling gaps.
+        <br><br>
+        <strong>Dev responsibility:</strong> Architecture decisions, prompt engineering, code review, testing, deployment, integration debugging<br>
+        <strong>Claude builds:</strong> Database schema, API endpoints, UI components, forms, tables, dashboards, n8n workflow templates
+      </div>
+    </div>
+  </div>
+
+  <h3>Where Claude Code excels</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">CRUD operations</div>
+      <div class="card-body">Creating, reading, updating, deleting records. This is 40-50% of the app. Claude generates these in minutes, not hours.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Database schema + migrations</div>
+      <div class="card-body">Prisma models, SQL schemas, migration files. Claude can generate the entire data model from the blueprint spec.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">UI components + forms</div>
+      <div class="card-body">React components, table views, form validation. The repetitive UI work that eats developer hours.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">API endpoint scaffolding</div>
+      <div class="card-body">REST endpoints with validation, error handling, auth middleware. Claude generates consistent, well-structured APIs.</div>
+    </div>
+  </div>
+
+  <h3>Where the developer is essential</h3>
+  <div class="card-grid">
+    <div class="card highlight">
+      <div class="card-title">Third-party API integration</div>
+      <div class="card-body">Revolut, Wise, Deel, Google Workspace APIs require careful auth flows, error handling, and edge case management. Claude can scaffold, but a human needs to debug the real-world integration.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Business logic validation</div>
+      <div class="card-body">Making sure the rate calculations match the spreadsheet exactly. Testing with real data. Catching the edge cases (partial months, mid-month rate changes, currency conversions).</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Deployment + DevOps</div>
+      <div class="card-body">Setting up hosting, CI/CD, environment variables, SSL, database backups. Claude can write configs but a human needs to manage the infrastructure.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Security review</div>
+      <div class="card-body">Auth implementation, bank detail encryption, API key management, role-based access. Too critical to leave to AI alone.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HOUR SUMMARY ============ -->
+<div class="section" id="summary">
+  <h2>Total Hour Estimates</h2>
+
+  <div class="card-grid">
+    <div class="card" style="border-top: 3px solid var(--electric);">
+      <div class="card-title" style="color: var(--electric); font-size: 13px;">APPROACH A: Dev + Claude Copilot</div>
+      <div class="card-title" style="color: var(--electric); font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800;">~420 hrs</div>
+      <div class="card-body">Developer hours (Claude assisting)<br><span style="font-size:11px; color: var(--blue);">~10.5 weeks at 40 hrs/week</span></div>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--green);">
+      <div class="card-title" style="color: var(--green); font-size: 13px;">APPROACH B: Claude Code Primary</div>
+      <div class="card-title" style="color: var(--green); font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800;">~240 hrs</div>
+      <div class="card-body">Developer hours (Claude builds, dev reviews)<br><span style="font-size:11px; color: var(--blue);">~6 weeks at 40 hrs/week</span></div>
+    </div>
+    <div class="card" style="border-top: 3px solid var(--orange);">
+      <div class="card-title" style="color: var(--orange); font-size: 13px;">SAVINGS WITH CLAUDE CODE</div>
+      <div class="card-title" style="color: var(--orange); font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 800;">~43%</div>
+      <div class="card-body">Reduction in developer hours<br><span style="font-size:11px; color: var(--blue);">~180 hours saved</span></div>
+    </div>
+  </div>
+
+  <h3>Hours by Phase</h3>
+  <table>
+    <thead>
+      <tr><th>Phase</th><th>Approach A (Dev + Copilot)</th><th>Approach B (Claude Code)</th><th>Savings</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Phase 1:</strong> Foundation</td><td>100 hrs</td><td>55 hrs</td><td><span class="tag tag-green">45%</span></td></tr>
+      <tr><td><strong>Phase 2:</strong> Invoice Lifecycle</td><td>90 hrs</td><td>55 hrs</td><td><span class="tag tag-green">39%</span></td></tr>
+      <tr><td><strong>Phase 3:</strong> Automation Layer</td><td>80 hrs</td><td>50 hrs</td><td><span class="tag tag-green">38%</span></td></tr>
+      <tr><td><strong>Phase 4:</strong> Multi-Service</td><td>75 hrs</td><td>40 hrs</td><td><span class="tag tag-green">47%</span></td></tr>
+      <tr><td><strong>Phase 5:</strong> Advanced</td><td>75 hrs</td><td>40 hrs</td><td><span class="tag tag-green">47%</span></td></tr>
+      <tr style="font-weight: 700;"><td>Total</td><td>420 hrs</td><td>240 hrs</td><td><span class="tag tag-green">43%</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ PHASE 1 ============ -->
+<div class="section" id="phase1">
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-name">Phase 1: Foundation</div>
+      <div class="phase-meta">
+        <span class="tag tag-blue">Dev + Copilot: 100 hrs</span>
+        <span class="tag tag-green">Claude Code: 55 hrs</span>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>Replace the spreadsheets. Database, core entities, rate calculation, basic dashboard.</p>
+
+      <table>
+        <thead><tr><th>Task</th><th>Dev + Copilot</th><th>Claude Code</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Project setup</strong><br><span style="font-size:11px; color: var(--blue);">Next.js, Prisma, PostgreSQL, Tailwind, auth</span></td>
+            <td>8 hrs</td>
+            <td>3 hrs</td>
+            <td>Claude generates the entire scaffold. Dev reviews and configures env.</td>
+          </tr>
+          <tr>
+            <td><strong>Database schema</strong><br><span style="font-size:11px; color: var(--blue);">All entities from the data model: Client, Contractor, Engagement, Assignment, RateHistory</span></td>
+            <td>10 hrs</td>
+            <td>4 hrs</td>
+            <td>Claude generates Prisma schema from the blueprint spec. Dev validates relationships and constraints.</td>
+          </tr>
+          <tr>
+            <td><strong>Client management CRUD</strong><br><span style="font-size:11px; color: var(--blue);">Create, list, edit, archive clients. Search and filter.</span></td>
+            <td>12 hrs</td>
+            <td>5 hrs</td>
+            <td>Pure CRUD. Claude's sweet spot. Generates API + UI in one pass.</td>
+          </tr>
+          <tr>
+            <td><strong>Contractor management CRUD</strong><br><span style="font-size:11px; color: var(--blue);">Profiles with legal entity, VAT, bank details. Status management.</span></td>
+            <td>12 hrs</td>
+            <td>5 hrs</td>
+            <td>Similar to clients. Bank detail fields need encryption, which dev should handle.</td>
+          </tr>
+          <tr>
+            <td><strong>Engagement + Assignment setup</strong><br><span style="font-size:11px; color: var(--blue);">Create engagements, assign contractors with rate configs (hourly/daily/monthly + Carbon fee).</span></td>
+            <td>16 hrs</td>
+            <td>10 hrs</td>
+            <td>More complex UI with conditional forms per rate type. Claude builds the structure, dev polishes the UX.</td>
+          </tr>
+          <tr>
+            <td><strong>Time entry + billing calculation</strong><br><span style="font-size:11px; color: var(--blue);">Monthly time input. Auto-calculate contractor total, Carbon fee, client total per assignment.</span></td>
+            <td>16 hrs</td>
+            <td>10 hrs</td>
+            <td>Core business logic. Claude generates the calculation engine, dev validates against real spreadsheet data.</td>
+          </tr>
+          <tr>
+            <td><strong>Dashboard (Totals for Model replacement)</strong><br><span style="font-size:11px; color: var(--blue);">Monthly summary by client: revenue, margin, payment status.</span></td>
+            <td>12 hrs</td>
+            <td>8 hrs</td>
+            <td>Charts and KPI cards. Claude generates the components, dev tunes the queries for performance.</td>
+          </tr>
+          <tr>
+            <td><strong>Data import from 2026 spreadsheet</strong><br><span style="font-size:11px; color: var(--blue);">Script to parse the Excel files and seed the database.</span></td>
+            <td>8 hrs</td>
+            <td>6 hrs</td>
+            <td>Claude can generate the parser from the spreadsheet structure analysis. Dev handles edge cases in the actual data.</td>
+          </tr>
+          <tr>
+            <td><strong>Testing + bug fixes</strong><br><span style="font-size:11px; color: var(--blue);">Validate calculations match spreadsheets. Fix issues.</span></td>
+            <td>6 hrs</td>
+            <td>4 hrs</td>
+            <td>Dev-heavy. Comparing outputs against real billing data.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PHASE 2 ============ -->
+<div class="section" id="phase2">
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-name">Phase 2: Invoice Lifecycle</div>
+      <div class="phase-meta">
+        <span class="tag tag-blue">Dev + Copilot: 90 hrs</span>
+        <span class="tag tag-green">Claude Code: 55 hrs</span>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>Client invoice generation, contractor invoice intake, cross-checking, and full AR/AP tracking.</p>
+
+      <table>
+        <thead><tr><th>Task</th><th>Dev + Copilot</th><th>Claude Code</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Client invoice PDF generation</strong><br><span style="font-size:11px; color: var(--blue);">Branded PDF templates. Auto-populate from billing period data.</span></td>
+            <td>14 hrs</td>
+            <td>8 hrs</td>
+            <td>Claude generates the React-PDF template. Dev refines branding and layout to match Carbon standards.</td>
+          </tr>
+          <tr>
+            <td><strong>Client invoice management UI</strong><br><span style="font-size:11px; color: var(--blue);">List, filter, status tracking. Sent/Due/Paid lifecycle.</span></td>
+            <td>10 hrs</td>
+            <td>5 hrs</td>
+            <td>CRUD with status workflow. Claude handles the bulk.</td>
+          </tr>
+          <tr>
+            <td><strong>Contractor invoice upload + storage</strong><br><span style="font-size:11px; color: var(--blue);">File upload, cloud storage, metadata entry.</span></td>
+            <td>8 hrs</td>
+            <td>5 hrs</td>
+            <td>File handling and cloud storage config. Dev manages the S3/GCS setup.</td>
+          </tr>
+          <tr>
+            <td><strong>Invoice OCR/parsing integration</strong><br><span style="font-size:11px; color: var(--blue);">Connect to Google Document AI or Mindee. Extract amount, date, invoice number.</span></td>
+            <td>16 hrs</td>
+            <td>12 hrs</td>
+            <td>Third-party API integration. Claude scaffolds, dev handles auth, error cases, and accuracy tuning.</td>
+          </tr>
+          <tr>
+            <td><strong>Cross-check engine</strong><br><span style="font-size:11px; color: var(--blue);">Compare parsed invoice amounts vs. calculated billing. Flag discrepancies.</span></td>
+            <td>12 hrs</td>
+            <td>7 hrs</td>
+            <td>Business logic + UI for review workflow. Claude builds the matching algorithm, dev validates edge cases.</td>
+          </tr>
+          <tr>
+            <td><strong>Batch payment queue + approval</strong><br><span style="font-size:11px; color: var(--blue);">Group verified invoices by client. Review and approve batches.</span></td>
+            <td>14 hrs</td>
+            <td>8 hrs</td>
+            <td>Complex UI with batch grouping and approval workflow. Claude generates the table views and state management.</td>
+          </tr>
+          <tr>
+            <td><strong>AR aging + AP status views</strong><br><span style="font-size:11px; color: var(--blue);">Overdue tracking, status dashboards.</span></td>
+            <td>10 hrs</td>
+            <td>6 hrs</td>
+            <td>Dashboard components with date-based calculations. Claude handles the UI, dev validates the aging logic.</td>
+          </tr>
+          <tr>
+            <td><strong>Testing + bug fixes</strong></td>
+            <td>6 hrs</td>
+            <td>4 hrs</td>
+            <td>End-to-end testing of the full invoice lifecycle.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PHASE 3 ============ -->
+<div class="section" id="phase3">
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-name">Phase 3: Automation + Payments</div>
+      <div class="phase-meta">
+        <span class="tag tag-blue">Dev + Copilot: 80 hrs</span>
+        <span class="tag tag-green">Claude Code: 50 hrs</span>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>n8n workflows, Slack/Gmail/Notion integrations, Revolut and Wise batch payment execution.</p>
+
+      <table>
+        <thead><tr><th>Task</th><th>Dev + Copilot</th><th>Claude Code</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Revolut Business API integration</strong><br><span style="font-size:11px; color: var(--blue);">Auth, batch payment creation, transaction status, webhooks.</span></td>
+            <td>16 hrs</td>
+            <td>12 hrs</td>
+            <td>Critical integration. Claude generates the API client, dev handles OAuth flow, sandbox testing, error handling. Bank APIs are unforgiving.</td>
+          </tr>
+          <tr>
+            <td><strong>Wise Business API integration</strong><br><span style="font-size:11px; color: var(--blue);">Recipient management, quotes, batch transfers, FX rates.</span></td>
+            <td>14 hrs</td>
+            <td>10 hrs</td>
+            <td>Similar to Revolut but different API patterns. Wise requires quote-then-transfer flow.</td>
+          </tr>
+          <tr>
+            <td><strong>Payment routing logic</strong><br><span style="font-size:11px; color: var(--blue);">Auto-route to Revolut/Wise/Deel based on contractor profile.</span></td>
+            <td>6 hrs</td>
+            <td>3 hrs</td>
+            <td>Business logic. Claude can handle this cleanly.</td>
+          </tr>
+          <tr>
+            <td><strong>n8n workflow: monthly billing cycle</strong><br><span style="font-size:11px; color: var(--blue);">Auto-calculate, notify, generate invoices, send via Gmail.</span></td>
+            <td>10 hrs</td>
+            <td>6 hrs</td>
+            <td>Claude generates the n8n workflow JSON. Dev imports, tests, and tweaks triggers.</td>
+          </tr>
+          <tr>
+            <td><strong>n8n workflow: contractor invoice intake</strong><br><span style="font-size:11px; color: var(--blue);">Gmail monitoring, PDF extraction, OCR, cross-check, Slack notify.</span></td>
+            <td>10 hrs</td>
+            <td>6 hrs</td>
+            <td>Multi-step workflow. Claude scaffolds, dev handles Gmail API permissions and edge cases.</td>
+          </tr>
+          <tr>
+            <td><strong>n8n workflow: payment execution + reconciliation</strong><br><span style="font-size:11px; color: var(--blue);">Batch approval triggers, Revolut/Wise API calls, status sync.</span></td>
+            <td>8 hrs</td>
+            <td>5 hrs</td>
+            <td>Connects the payment APIs to the platform via n8n webhooks.</td>
+          </tr>
+          <tr>
+            <td><strong>Slack notifications</strong><br><span style="font-size:11px; color: var(--blue);">Overdue alerts, payment confirmations, billing summaries.</span></td>
+            <td>6 hrs</td>
+            <td>3 hrs</td>
+            <td>Slack API is straightforward. Claude handles this quickly.</td>
+          </tr>
+          <tr>
+            <td><strong>Notion sync</strong><br><span style="font-size:11px; color: var(--blue);">Engagement status, monthly summaries to Notion pages.</span></td>
+            <td>6 hrs</td>
+            <td>3 hrs</td>
+            <td>Notion API is well-documented. Claude generates the sync logic.</td>
+          </tr>
+          <tr>
+            <td><strong>Testing + bug fixes</strong></td>
+            <td>4 hrs</td>
+            <td>2 hrs</td>
+            <td>Integration testing across all automation paths.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PHASE 4 ============ -->
+<div class="section" id="phase4">
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-name">Phase 4: Multi-Service Expansion</div>
+      <div class="phase-meta">
+        <span class="tag tag-blue">Dev + Copilot: 75 hrs</span>
+        <span class="tag tag-green">Claude Code: 40 hrs</span>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>Add Product Studio, Recruitment, and BOT billing models. Milestone-based billing. Retainer management.</p>
+
+      <table>
+        <thead><tr><th>Task</th><th>Dev + Copilot</th><th>Claude Code</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Engagement type system</strong><br><span style="font-size:11px; color: var(--blue);">Polymorphic engagement types with type-specific billing rules.</span></td>
+            <td>10 hrs</td>
+            <td>5 hrs</td>
+            <td>Schema extension and conditional UI logic. Claude generates the framework, dev ensures type safety.</td>
+          </tr>
+          <tr>
+            <td><strong>Milestone billing engine</strong><br><span style="font-size:11px; color: var(--blue);">Create milestones, link to engagements, track completion, trigger invoicing.</span></td>
+            <td>14 hrs</td>
+            <td>8 hrs</td>
+            <td>New entity + workflow. Claude builds CRUD and status management.</td>
+          </tr>
+          <tr>
+            <td><strong>Recruitment fee structures</strong><br><span style="font-size:11px; color: var(--blue);">Percentage of salary, success fees, guarantee period tracking.</span></td>
+            <td>12 hrs</td>
+            <td>6 hrs</td>
+            <td>Domain-specific business logic. Claude generates the calculation engine, dev validates against real scenarios.</td>
+          </tr>
+          <tr>
+            <td><strong>BOT phase management</strong><br><span style="font-size:11px; color: var(--blue);">Build/Operate/Transfer phases with different billing per phase. Ramp-down scheduling.</span></td>
+            <td>12 hrs</td>
+            <td>6 hrs</td>
+            <td>Phase lifecycle with state transitions. Claude handles the UI, dev validates the business rules.</td>
+          </tr>
+          <tr>
+            <td><strong>Retainer management</strong><br><span style="font-size:11px; color: var(--blue);">Monthly retainers with rollover tracking and overage billing.</span></td>
+            <td>10 hrs</td>
+            <td>5 hrs</td>
+            <td>Recurring billing with balance tracking. Well-defined enough for Claude to build end-to-end.</td>
+          </tr>
+          <tr>
+            <td><strong>Hybrid billing support</strong><br><span style="font-size:11px; color: var(--blue);">Combine retainer + T&M, milestone + time tracking.</span></td>
+            <td>10 hrs</td>
+            <td>6 hrs</td>
+            <td>Composition logic. The most complex billing scenario. Dev leads architecture, Claude implements.</td>
+          </tr>
+          <tr>
+            <td><strong>Testing + bug fixes</strong></td>
+            <td>7 hrs</td>
+            <td>4 hrs</td>
+            <td>Test all billing models with realistic scenarios.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PHASE 5 ============ -->
+<div class="section" id="phase5">
+  <div class="phase-card">
+    <div class="phase-header">
+      <div class="phase-name">Phase 5: Reports + Advanced</div>
+      <div class="phase-meta">
+        <span class="tag tag-blue">Dev + Copilot: 75 hrs</span>
+        <span class="tag tag-green">Claude Code: 40 hrs</span>
+      </div>
+    </div>
+    <div class="phase-body">
+      <p>Operational reporting, KPI dashboards, multi-currency, historical data migration, cash flow forecasting.</p>
+
+      <table>
+        <thead><tr><th>Task</th><th>Dev + Copilot</th><th>Claude Code</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>KPI dashboard</strong><br><span style="font-size:11px; color: var(--blue);">Revenue, margin, active contractors, active clients. Snapshot cards + trends.</span></td>
+            <td>10 hrs</td>
+            <td>5 hrs</td>
+            <td>Chart components and aggregate queries. Claude's strong suit.</td>
+          </tr>
+          <tr>
+            <td><strong>Revenue + margin reports</strong><br><span style="font-size:11px; color: var(--blue);">By client, contractor, service type. Period comparison. Exportable.</span></td>
+            <td>12 hrs</td>
+            <td>6 hrs</td>
+            <td>Complex SQL aggregations + table/chart UI. Claude generates queries and components.</td>
+          </tr>
+          <tr>
+            <td><strong>Contractor activity reports</strong><br><span style="font-size:11px; color: var(--blue);">Active count, hours/days, utilization, bench report.</span></td>
+            <td>10 hrs</td>
+            <td>5 hrs</td>
+            <td>Aggregate queries with date range filtering. Claude handles the data layer and UI.</td>
+          </tr>
+          <tr>
+            <td><strong>Client reports + payment behavior</strong><br><span style="font-size:11px; color: var(--blue);">Billing history, avg days to pay, concentration risk.</span></td>
+            <td>8 hrs</td>
+            <td>4 hrs</td>
+            <td>Similar pattern to contractor reports. Claude reuses patterns from previous reports.</td>
+          </tr>
+          <tr>
+            <td><strong>Multi-currency engine</strong><br><span style="font-size:11px; color: var(--blue);">Exchange rates, conversion for margin calculations, multi-currency reports.</span></td>
+            <td>10 hrs</td>
+            <td>6 hrs</td>
+            <td>FX rate fetching + conversion logic throughout billing. Dev validates calculation accuracy.</td>
+          </tr>
+          <tr>
+            <td><strong>Cash flow forecasting</strong><br><span style="font-size:11px; color: var(--blue);">Based on payment terms, historical patterns. Forward-looking 3-month view.</span></td>
+            <td>10 hrs</td>
+            <td>6 hrs</td>
+            <td>Prediction logic using historical data. Claude builds the algorithm, dev validates the assumptions.</td>
+          </tr>
+          <tr>
+            <td><strong>CSV/PDF/Google Sheets export</strong><br><span style="font-size:11px; color: var(--blue);">Export any report. Push to Google Sheets via API.</span></td>
+            <td>8 hrs</td>
+            <td>4 hrs</td>
+            <td>Standard export patterns. Claude generates the export handlers.</td>
+          </tr>
+          <tr>
+            <td><strong>Historical data migration (2024 + 2025)</strong><br><span style="font-size:11px; color: var(--blue);">Parse old workbooks, import into the system for historical reporting.</span></td>
+            <td>4 hrs</td>
+            <td>2 hrs</td>
+            <td>Reuse the Phase 1 import script, adapt for older formats.</td>
+          </tr>
+          <tr>
+            <td><strong>Testing + bug fixes</strong></td>
+            <td>3 hrs</td>
+            <td>2 hrs</td>
+            <td>Validate report accuracy against known spreadsheet totals.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TIMELINE ============ -->
+<div class="section" id="timeline">
+  <h2>Timeline Comparison</h2>
+
+  <h3>Visual Timeline (1 developer, 40 hrs/week)</h3>
+  <div class="gantt">
+    <div class="gantt-weeks">
+      <div class="gantt-week">W1</div><div class="gantt-week">W2</div><div class="gantt-week">W3</div>
+      <div class="gantt-week">W4</div><div class="gantt-week">W5</div><div class="gantt-week">W6</div>
+      <div class="gantt-week">W7</div><div class="gantt-week">W8</div><div class="gantt-week">W9</div>
+      <div class="gantt-week">W10</div><div class="gantt-week">W11</div>
+    </div>
+
+    <p style="font-size: 12px; font-weight: 600; color: var(--blue); margin: 12px 0 4px;">Approach A: Dev + Claude Copilot (~10.5 weeks)</p>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 1</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:0; width:23%; background: var(--electric);">P1</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 2</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:23%; width:22%; background: var(--electric);">P2</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 3</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:45%; width:19%; background: var(--electric);">P3</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 4</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:64%; width:18%; background: var(--electric);">P4</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 5</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:82%; width:18%; background: var(--electric);">P5</div></div>
+    </div>
+
+    <p style="font-size: 12px; font-weight: 600; color: var(--green); margin: 20px 0 4px;">Approach B: Claude Code Primary (~6 weeks)</p>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 1</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:0; width:13%; background: var(--green);">P1</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 2</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:13%; width:13%; background: var(--green);">P2</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 3</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:26%; width:12%; background: var(--green);">P3</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 4</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:38%; width:10%; background: var(--green);">P4</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">Phase 5</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:48%; width:10%; background: var(--green);">P5</div></div>
+    </div>
+  </div>
+
+  <h3>Key Milestones</h3>
+  <table>
+    <thead><tr><th>Milestone</th><th>Approach A</th><th>Approach B</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Off spreadsheets</strong> (Phase 1 complete)</td><td>Week 2.5</td><td>Week 1.5</td></tr>
+      <tr><td><strong>Full invoice lifecycle</strong> (Phase 2 complete)</td><td>Week 5</td><td>Week 3</td></tr>
+      <tr><td><strong>Automated + payments live</strong> (Phase 3 complete)</td><td>Week 7</td><td>Week 4</td></tr>
+      <tr><td><strong>All service types</strong> (Phase 4 complete)</td><td>Week 9</td><td>Week 5</td></tr>
+      <tr><td><strong>Full platform</strong> (Phase 5 complete)</td><td>Week 10.5</td><td>Week 6</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ============ RISKS ============ -->
+<div class="section" id="risks">
+  <h2>Risks and Considerations</h2>
+
+  <div class="card-grid">
+    <div class="card highlight">
+      <div class="card-title">Claude Code limitations</div>
+      <div class="card-body">Claude generates code that works in isolation but may not account for all integration edge cases. Bank APIs (Revolut, Wise) have strict requirements around idempotency, rate limits, and error handling that need human attention. Budget an extra 10-15% for integration debugging.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Code quality review is non-negotiable</div>
+      <div class="card-body">Claude-generated code needs thorough review, especially for security (auth, encryption), financial calculations (rounding, currency), and data integrity (database constraints, transactions). The time savings come from generation speed, not from skipping review.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Scope creep risk</div>
+      <div class="card-body">Because Claude can generate features quickly, there's temptation to add "just one more thing" per phase. Stick to the phased approach. Ship Phase 1, use it for a billing cycle, then iterate. Real usage reveals the real priorities.</div>
+    </div>
+    <div class="card highlight">
+      <div class="card-title">Testing with real financial data</div>
+      <div class="card-body">The billing calculations must match the spreadsheets exactly. Plan for at least one full billing cycle running in parallel (platform + spreadsheet) before cutting over. This adds ~2 weeks to the effective go-live timeline but prevents costly errors.</div>
+    </div>
+  </div>
+
+  <h3>Recommended Approach</h3>
+  <div class="card green" style="margin-top: 12px;">
+    <div class="card-title">Start with Approach B (Claude Code Primary) for Phase 1</div>
+    <div class="card-body">
+      Get Phase 1 built in ~1.5 weeks. Run it alongside the spreadsheets for one billing cycle. If the developer is comfortable with the Claude Code workflow and the output quality is solid, continue with Approach B for remaining phases. If the code needs more human intervention than expected, shift to Approach A for the more complex phases (3 and 4). The two approaches aren't mutually exclusive. You can mix them per phase based on what works.
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>
